@@ -7,11 +7,11 @@ const model = ref([
     {
         label: 'Home',
         items: [
-        {label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
-        {label: 'Team', icon: 'pi pi-fw pi-users', to: '/' },
-        {label: 'Messages', icon: 'pi pi-fw pi-comment', to: '/' },
-        {label: 'Calendar', icon: 'pi pi-fw pi-calendar', to: '/' },
-        {label: 'Reports', icon: 'pi pi-fw pi-file', to: '/' },
+            { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
+            { label: 'Team', icon: 'pi pi-fw pi-users', to: '/' },
+            { label: 'Messages', icon: 'pi pi-fw pi-comment', to: '/' },
+            { label: 'Calendar', icon: 'pi pi-fw pi-calendar', to: '/' },
+            { label: 'Reports', icon: 'pi pi-fw pi-file', to: '/' },
         ]
     },
     {
@@ -24,15 +24,15 @@ const model = ref([
             { label: 'Marketing & sponsors', icon: 'pi pi-fw pi-volume-up', to: '/uikit/button', class: 'rotated-icon' },
             { label: 'Ticketing & pre-sale', icon: 'pi pi-fw pi-ticket', to: '/uikit/table' },
             { label: 'Stage & equipment', icon: 'pi pi-fw pi-sliders-v', to: '/uikit/list' },
-            // { label: 'Tree', icon: 'pi pi-fw pi-share-alt', to: '/uikit/tree' },
-            // { label: 'Panel', icon: 'pi pi-fw pi-tablet', to: '/uikit/panel' },
-            // { label: 'Overlay', icon: 'pi pi-fw pi-clone', to: '/uikit/overlay' },
-            // { label: 'Media', icon: 'pi pi-fw pi-image', to: '/uikit/media' },
-            // { label: 'Menu', icon: 'pi pi-fw pi-bars', to: '/uikit/menu', preventExact: true },
-            // { label: 'Message', icon: 'pi pi-fw pi-comment', to: '/uikit/message' },
-            // { label: 'File', icon: 'pi pi-fw pi-file', to: '/uikit/file' },
+            { label: 'Tree', icon: 'pi pi-fw pi-share-alt', to: '/uikit/tree' },
+            { label: 'Panel', icon: 'pi pi-fw pi-tablet', to: '/uikit/panel' },
+            { label: 'Overlay', icon: 'pi pi-fw pi-clone', to: '/uikit/overlay' },
+            { label: 'Media', icon: 'pi pi-fw pi-image', to: '/uikit/media' },
+            { label: 'Menu', icon: 'pi pi-fw pi-bars', to: '/uikit/menu', preventExact: true },
+            { label: 'Message', icon: 'pi pi-fw pi-comment', to: '/uikit/message' },
+            { label: 'File', icon: 'pi pi-fw pi-file', to: '/uikit/file' },
             // { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', to: '/uikit/charts' },
-            // { label: 'Misc', icon: 'pi pi-fw pi-circle', to: '/uikit/misc' }
+            { label: 'Misc', icon: 'pi pi-fw pi-circle', to: '/uikit/misc' }
         ]
     },
     // {
