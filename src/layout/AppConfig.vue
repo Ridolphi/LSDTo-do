@@ -1,5 +1,5 @@
 <script setup>
-import AddTask from "../components/AddTask.vue";
+// import AddTask from "../components/AddTask.vue";
 import { ref, computed } from 'vue';
 import { usePrimeVue } from 'primevue/config';
 import { useLayout } from '@/layout/composables/layout';
@@ -118,10 +118,6 @@ const onFocusRingColorChange = (value) => {
 </script>
 
 <template>
-    <!-- <button class="layout-config-button p-link" type="button" @click="onConfigButtonClick()" title="Add New Task">
-        <i class="pi pi-plus"></i>
-    </button> -->
-    <AddTask />
     <Sidebar v-model:visible="visible" position="right" class="layout-config-sidebar w-26rem" pt:closeButton="ml-auto">
         <div class="p-2">
             <section class="pb-4 flex align-items-center justify-content-between border-bottom-1 surface-border">

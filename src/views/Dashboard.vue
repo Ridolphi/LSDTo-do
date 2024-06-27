@@ -1,4 +1,5 @@
 <script setup>
+import AddTask from "../components/AddTask.vue";
 import { onMounted, reactive, ref, watch } from 'vue';
 import { ProductService } from '@/service/ProductService';
 import { useLayout } from '@/layout/composables/layout';
@@ -115,6 +116,7 @@ watch(
 </script>
 
 <template>
+    <AddTask/>
     <div class="grid">
         <div class="col-12 lg:col-6 xl:col-4">
             <div class="card mb-0 bg-red-200">
@@ -164,9 +166,7 @@ watch(
                 <span class="text-500">Tasks done today</span>
             </div>
         </div>
-        <div>
-            <button class="p-5 card bg-blue-300">+</button>
-        </div>
+    
         <!-- <div class="col-12 lg:col-6 xl:col-3">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">

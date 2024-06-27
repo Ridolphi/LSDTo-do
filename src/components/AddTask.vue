@@ -18,3 +18,12 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@media (max-width: 767px) {
+  .layout-config-button {
+    top: auto;
+    bottom: 20px;
+  }
+}
+</style>
