@@ -24,6 +24,9 @@ export default {
   .layout-config-button {
     top: auto;
     bottom: 20px;
+    width: 5rem;
+    height: 5rem;
+    font-size: xx-large
   }
 }
 </style>
