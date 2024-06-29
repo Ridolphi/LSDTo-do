@@ -212,11 +212,7 @@ const model = ref([
 <template>
   <ul class="layout-menu">
     <template v-for="(item, i) in model" :key="item">
-      <app-menu-item
-        v-if="!item.separator"
-        :item="item"
-        :index="i"
-      ></app-menu-item>
+      <app-menu-item v-if="!item.separator" :item="item" :index="i"></app-menu-item>
       <li v-if="item.separator" class="menu-separator"></li>
     </template>
   </ul>
@@ -224,13 +220,14 @@ const model = ref([
 
 <style>
 @media (max-width: 991px) {
-    .layout-wrapper .layout-sidebar {
+  .layout-wrapper .layout-sidebar {
     width: 400px;
     z-index: 999999;
   }
 }
+
 @media (max-width: 500px) {
-    .layout-wrapper .layout-sidebar {
+  .layout-wrapper .layout-sidebar {
     width: 90vw;
     z-index: 999999;
   }

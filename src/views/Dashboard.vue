@@ -116,7 +116,7 @@ watch(
 </script>
 
 <template>
-    <AddTask/>
+    <AddTask />
     <div class="grid">
         <div class="col-12 lg:col-6 xl:col-4">
             <div class="card mb-0 bg-red-200">
@@ -166,7 +166,7 @@ watch(
                 <span class="text-500">Tasks done today</span>
             </div>
         </div>
-    
+
         <!-- <div class="col-12 lg:col-6 xl:col-3">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">

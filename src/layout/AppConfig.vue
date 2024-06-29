@@ -4,7 +4,6 @@ import { ref, computed } from 'vue';
 import { usePrimeVue } from 'primevue/config';
 import { useLayout } from '@/layout/composables/layout';
 
-
 defineProps({
     simple: {
         type: Boolean,
