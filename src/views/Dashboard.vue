@@ -1,6 +1,6 @@
 <script setup>
 import AddTask from "../components/AddTask.vue";
-import Task from "../components/Task.vue";
+import Task from "../components/Tasks.vue";
 import { onMounted, reactive, ref, watch } from 'vue';
 import { ProductService } from '@/service/ProductService';
 import { useLayout } from '@/layout/composables/layout';
