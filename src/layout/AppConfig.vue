@@ -118,7 +118,8 @@ const onFocusRingColorChange = (value) => {
 
 <template>
     <Sidebar v-model:visible="visible" position="right" class="layout-config-sidebar w-26rem" pt:closeButton="ml-auto">
-        <form action="" m-auto>
+        <h2>Add task to do</h2>
+        <form action="" class="bg-red-400 ml-auto w-5">
             <input type="text" placeholder="Task name">
             <input type="text" placeholder="Department"> <br>
             <input type="submit">

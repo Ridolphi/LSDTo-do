@@ -1,5 +1,6 @@
 <script setup>
 import AddTask from "../components/AddTask.vue";
+import Task from "../components/Task.vue";
 import { onMounted, reactive, ref, watch } from 'vue';
 import { ProductService } from '@/service/ProductService';
 import { useLayout } from '@/layout/composables/layout';
@@ -116,22 +117,30 @@ watch(
 </script>
 
 <template>
-    <AddTask />
     <div class="grid">
         <div class="col-12 lg:col-6 xl:col-4">
             <div class="card mb-0 bg-red-200">
                 <div class="flex justify-content-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">TO DO</span>
-                        <div class="text-900 font-medium text-xl">Hacer inteligente a Adri</div>
-                    </div>
+                    <span class="block text-500 font-medium mb-3">TO DO</span>
                     <div class="flex align-items-center justify-content-center bg-red-100 border-round"
                         style="width: 2.5rem; height: 2.5rem">
                         <i class="pi pi-exclamation-triangle text-red-500 text-xl"></i>
                     </div>
                 </div>
+                <div class="flex justify-content-between mb-3">
+                    <Task /> <!--componente task.vue-->
+
+                    <!-- <div>
+                        
+                        <div class="text-900 font-medium text-xl">Hacer inteligente a Adri</div>
+                    </div>
+                    <div class="flex align-items-center justify-content-center bg-red-100 border-round"
+                        style="width: 2.5rem; height: 2.5rem">
+                        <i class="pi pi-exclamation-triangle text-red-500 text-xl"></i>
+                    </div> -->
+                </div>
                 <span class="text-red-500 font-medium">28 </span>
-                <span class="text-500">Tasks waiting to be started</span>
+                <span class="text-500 font-medium">Tasks waiting to be started</span>
             </div>
         </div>
         <div class="col-12 lg:col-6 xl:col-4">
@@ -365,5 +374,6 @@ watch(
     </div>
 </div>
 </div> -->
+        <AddTask /> <!--BOTON DE AÑADIR TAREA-->
     </div>
 </template>

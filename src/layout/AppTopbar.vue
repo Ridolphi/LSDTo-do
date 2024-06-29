@@ -63,7 +63,7 @@ const isOutsideClicked = (event) => {
 <template>
     <div class="layout-topbar">
         <router-link to="/" class="layout-topbar-logo">
-            <img :src="logoUrl" alt="logo" style="height: 55px;"/>
+            <img :src="logoUrl" alt="logo" style="height: 55px;" />
             <span>LSD Festival</span>
         </router-link>
 
@@ -80,7 +80,7 @@ const isOutsideClicked = (event) => {
                 <i class="pi pi-calendar"></i>
                 <span>Calendar</span>
             </button>
-            <button @click="onTopBarMenuButton()" class="p-link layout-topbar-button">
+            <button @click="onTopBarMenuButton()" class="p-link layout-topbar-button" to="/views/pages/auth/Login.vue">
                 <i class="pi pi-user"></i>
                 <span>Profile</span>
             </button>
