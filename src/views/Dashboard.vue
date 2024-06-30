@@ -152,7 +152,7 @@ watch(
                     </div>
                     <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
                         style="width: 2.5rem; height: 2.5rem">
-                        <i class="pi pi-spinner text-orange-500 text-xl"></i>
+                        <i class="pi pi-spin pi-spinner"></i>
                     </div>
                 </div>
                 <span class="text-yellow-600 font-medium">288 </span>
