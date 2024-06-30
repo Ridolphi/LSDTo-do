@@ -44,8 +44,9 @@ const closeDialog = () => {
       </button>
     </div>
     <Dialog v-model:visible="displayDialog" modal>
-      <div class="p-4">
-        <h3 class="text-lg font-semibold mb-4">Editing task...</h3>
+      <div class="p-4 w">
+        <h3 class="text-lg font-semibold mb-4 text-inline">Editing task...</h3>
+        <i id="spinner" class="pi pi-spin pi-spinner"></i>
         <div class="mb-4">
           <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -78,13 +79,14 @@ const closeDialog = () => {
         </div>
         <div class="flex items-center justify-end">
           <button
-            class="bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            class="bg-blue-400 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            Guardar
+            <i class="pi pi-save text-xl"></i>
+
           </button>
-          <button @click="closeDialog" class="bg-red-400 text-white ml-5  hover:bg-red-700 cursor-pointer">
-            Cancelar
+          <button @click="closeDialog" class="bg-red-400 text-white ml-5  hover:bg-red-700 cursor-pointer font-bold py-2 px-3 rounded">
+            Cancel
           </button>
         </div>
       </div>
@@ -95,5 +97,11 @@ const closeDialog = () => {
 <style>
 #task {
   border-radius: 10px;
+}
+#spinner{
+    position: absolute;
+    right: 16%;
+    top: 20%;
+    font-size: 2rem;
 }
 </style>
