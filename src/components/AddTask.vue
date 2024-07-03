@@ -2,11 +2,11 @@
     <button class="layout-config-button p-link" type="button" @click="onConfigButtonClick()" title="Add New Task">
         <i class="pi pi-plus"></i>
     </button>
-    <AppConfig v-model:visible="visible" />
+    <AppAddTask v-model:visible="visible" />
 </template>
 
 <script>
-import AppConfig from '@/layout/AppConfig.vue';
+import AppAddTask from '@/layout/AppAddTask.vue';
 
 export default {
     data() {
@@ -20,7 +20,7 @@ export default {
         }
     },
     components: {
-        AppConfig
+        AppAddTask
     },
 }
 </script>
