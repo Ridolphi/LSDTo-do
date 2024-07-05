@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-const departments = [
+let departments = [
   "Artist & bookings",
   "Gastronomy",
   "Legal security & control",
@@ -8,9 +8,8 @@ const departments = [
   "Ticketing & pre-sale",
   "Stage & equipment",
 ];
-// const tasks = adadasdadasdasda.tuprima-- > [array con las task["Task 1 {id:asdasdas , taskname: Pagar a gaston, ....}", "Task 2 {}"]]
-
-
+// const api = adadasdadasdasda.tuprima-- > [array con las task["Task 1 {id:asdasdas , taskname: Pagar a gaston, ....}", "Task 2 {}"]]
+// console.log (api)
 
 
 const displayDialog = ref(false);
@@ -24,6 +23,7 @@ let editedTaskName = ref(taskName);
 let editedTaskDescription = ref(taskDescription);
 let editedDepartment = ref(department);
 let editedStatus = ref(status);
+let contacts = ref([]);
 
 // Función para abrir el diálogo
 const openDialog = () => {
@@ -36,7 +36,7 @@ const closeDialog = () => {
 };
 
 //funcion para editar el nombre de la tarea
-const updateTaskName = () => {
+const updateTask = () => {
   taskName = editedTaskName;
   department = editedDepartment
   taskDescription = editedTaskDescription
@@ -44,21 +44,38 @@ const updateTaskName = () => {
 };
 
 
+const todos = ref([]);
+async function fetchTodos() {
+  try {
+    const response = await fetch("https://node-todos.vercel.app/users/grupo3/todos");
+    const data = await response.json();
+    todos.value = data; // Asignar los datos a la propiedad reactiva
+  } catch (error) {
+    console.error('Error al obtener los contactos:', error);
+  }
+  console.log(todos); //comprobamos por consola que 'todosalgabien' XD
+}
+fetchTodos();
+
 </script>
 <template>
   <div id="task" class="bg-red-100 p-2 rounded">
-    <!-- Coger datos de la API-->
-    <div class="text-900 font-medium text-xl">{{ taskName }}</div>
-    <div class="text-500">{{ taskDescription }}</div>
-    <div class="text-500">Department: {{ department }}</div>
-    <!--<div class="text-500">Status: {{ status }}</div>-->
-    <div class="text-right mt-2">
-      <button class="p-button p-button-danger p-button-rounded mr-2">
-        <i class="pi pi-trash"></i>
-      </button>
-      <button @click="openDialog" class="p-button p-button-success p-button-rounded">
-        <i class="pi pi-pencil"></i>
-      </button>
+    <div v-if="todos.length === 0">Waiting for tasks... <i class="pi pi-spin pi-spinner"></i></div>
+    <!-- Lo mostará cuando estemos cargando los datos de la API-->
+
+    <div v-for="todo in todos" :key="todo.id" id="task" class="bg-red-100 p-2 rounded mb-4">
+      <div class="text-900 font-medium text-xl">{{ todo.text }}</div>
+      <div class="text-500">{{ todo.description }}</div>
+      <div class="text-500"><b><u>Department</u>:</b> {{ todo?.tags?.department }}</div>
+      <div class="text-500"><b><u>Status</u>:</b> {{ todo?.tags?.status }}</div>
+      <div class="text-right mt-2">
+        <button class="p-button p-button-danger p-button-rounded mr-2">
+          <i class="pi pi-trash"></i>
+        </button>
+        <button @click="openDialog" class="p-button p-button-success p-button-rounded">
+          <i class="pi pi-pencil"></i>
+        </button>
+      </div>
     </div>
     <!-- DIÁLOGO PARA EDITAR TAREA QUE POR DEFECTO NO SERÁ VISIBLE-->
     <Dialog v-model:visible="displayDialog" modal>
@@ -87,7 +104,7 @@ const updateTaskName = () => {
         <div class="flex items-center justify-end">
           <button
             class="bg-blue-400 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button" @click="updateTaskName">
+            type="button" @click="updateTask">
             <i class="pi pi-save text-xl"></i>
           </button>
           <button @click="closeDialog"

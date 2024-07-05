@@ -1,6 +1,5 @@
 <script setup>
 import { ref, reactive } from 'vue';
-
 const props = defineProps({
     header: {
         type: String,

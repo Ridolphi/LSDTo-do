@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-
+const visible = ref(false); // Inicializa la propiedad visible como false
 const departments = [
   "Artist & bookings",
   "Gastronomy",
@@ -9,6 +9,7 @@ const departments = [
   "Ticketing & pre-sale",
   "Stage & equipment",
 ]
+
 </script>
 
 <template>
