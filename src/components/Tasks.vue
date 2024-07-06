@@ -18,12 +18,11 @@ const closeDialog = () => {
 
 const departments = ref([]); //creamos departments como un array vacío
 onMounted(() => {
-  fetchTodos().then(() => {
+  fetchTodos()
+  .then(() => {
     departments.value = [
       ...new Set(todos.value.map((todo) => todo.tags.department.toUpperCase())),
     ]; // Al cargar las tareas, obtenemos todos los departamentos únicos
-
-    // Al cargar las tareas, obtenemos todos los departamentos únicos
   });
 });
 
@@ -61,13 +60,13 @@ const TasksDone = computed(() =>
         >
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
           <div class="text-500">
-            <b><u>Description</u>:</b> {{ task.description }}
+            <b><u>Description</u>:</b> {{ task.description}}
           </div>
           <div class="text-500">
-            <b><u>Department</u>:</b> {{ task.tags.department }}
+            <b><u>Department</u>:</b> {{ task.tags.department.toUpperCase() }}
           </div>
           <div class="text-500">
-            <b><u>Status</u>:</b> {{ task.tags.status }}
+            <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div>
           <div class="text-right mt-2">
             <button class="p-button p-button-danger p-button-rounded mr-2">
@@ -116,10 +115,10 @@ const TasksDone = computed(() =>
             <b><u>Description</u>:</b> {{ task.description }}
           </div>
           <div class="text-500">
-            <b><u>Department</u>:</b> {{ task.tags.department }}
+            <b><u>Department</u>:</b> {{ task.tags.department.toUpperCase() }}
           </div>
           <div class="text-500">
-            <b><u>Status</u>:</b> {{ task.tags.status }}
+            <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div>
           <div class="text-right mt-2">
             <button class="p-button p-button-danger p-button-rounded mr-2">
@@ -167,10 +166,10 @@ const TasksDone = computed(() =>
             <b><u>Description</u>:</b> {{ task.description }}
           </div>
           <div class="text-500">
-            <b><u>Department</u>:</b> {{ task.tags.department }}
+            <b><u>Department</u>:</b> {{ task.tags.department.toUpperCase() }}
           </div>
           <div class="text-500">
-            <b><u>Status</u>:</b> {{ task.tags.status }}
+            <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div>
           <div class="text-right mt-2">
             <button class="p-button p-button-danger p-button-rounded mr-2">
