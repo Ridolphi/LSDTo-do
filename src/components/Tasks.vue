@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, toRefs, onMounted } from "vue";
-import { fetchTodos, todos } from "../service/ToDosAPI.js";
+import { fetchTodos, todos, deleteTask } from "../service/ToDosAPI.js";
 import AddTask from "../components/AddTask.vue";
 
 const displayDialog = ref(false);
@@ -9,7 +9,7 @@ const editedTask = ref(null);
 const openDialog = (task) => {
   displayDialog.value = true;
   editedTask.value = { ...task };
-  // console.log(task);
+  //console.log(task);
 };
 
 const closeDialog = () => {
@@ -35,6 +35,8 @@ const TasksInProgress = computed(() =>
 const TasksDone = computed(() =>
   todos.value.filter((todo) => todo.tags.status.toLowerCase() === "done")
 );
+
+
 </script>
 
 <template>
@@ -63,7 +65,7 @@ const TasksDone = computed(() =>
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div>
           <div class="text-right mt-2">
-            <button class="p-button p-button-danger p-button-rounded mr-2">
+            <button class="p-button p-button-danger p-button-rounded mr-2" @click="deleteTask(task.id)">
               <i class="pi pi-trash"></i>
             </button>
             <button @click="openDialog(task)" class="p-button p-button-success p-button-rounded">
@@ -104,7 +106,7 @@ const TasksDone = computed(() =>
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div>
           <div class="text-right mt-2">
-            <button class="p-button p-button-danger p-button-rounded mr-2">
+            <button class="p-button p-button-danger p-button-rounded mr-2" @click="deleteTask(task.id)">
               <i class="pi pi-trash"></i>
             </button>
             <button @click="openDialog(task)" class="p-button p-button-success p-button-rounded">
@@ -146,7 +148,7 @@ const TasksDone = computed(() =>
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div>
           <div class="text-right mt-2">
-            <button class="p-button p-button-danger p-button-rounded mr-2">
+            <button class="p-button p-button-danger p-button-rounded mr-2" @click="deleteTask(task.id)">
               <i class="pi pi-trash"></i>
             </button>
             <button @click="openDialog" class="p-button p-button-success p-button-rounded">
