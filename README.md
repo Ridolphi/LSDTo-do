@@ -26,4 +26,7 @@ npm run build
 
 ```sh
 npm run lint
+
 ```
+
+Esto es una prueba para hacer merge.
