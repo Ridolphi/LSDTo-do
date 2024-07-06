@@ -1,6 +1,12 @@
 import { ref } from 'vue';
+import toastService from '../main.js'; // Importa la instancia del servicio ToastService
+
 
 const todos = ref([]);
+const deleteModal = ref(false); // Agrega esta línea
+const closeDeleteModal = () => {
+  deleteModal.value = false;
+};
 
 export const fetchTodos = async () => {
   try {
@@ -10,24 +16,51 @@ export const fetchTodos = async () => {
   } catch (error) {
     console.error('Error al obtener los contactos:', error);
   }
-  //   console.log(todos.value); // Comprobamos por consola que los datos se asignaron correctamente
 };
 
-
-export const deleteTask = async (id) => {
+const deleteTask = async (id) => {
   try {
     const response = await fetch(`https://node-todos.vercel.app/users/grupo3/todos/${id}`, {
       'method': 'DELETE',
     });
+
     if (response.ok) {
-      todos.id.value = todos.id.value.filter(todo => todo.id !== id);
+      todos.value = todos.value.filter(todo => todo.id !== id);
+      toastService.add({ severity: 'success', summary: 'Task deleted', detail: 'Task was deleted successfully', life: 3000 }); // Utiliza toastService
     } else {
       console.error('Error al eliminar la tarea:', response.status);
+      toastService.add({ severity: 'error', summary: 'Error', detail: 'Error on deleting task', life: 3000 }); // Utiliza toastService
     }
   } catch (error) {
     console.error('Error al eliminar la tarea:', error);
+    toastService.add({ severity: 'error', summary: 'Error', detail: 'Error on deleting task', life: 3000 }); // Utiliza toastService
   }
-  fetchTodos();
-}
 
-export { todos }; // Exportamos la referencia a 'todos' para que sea accesible donde sea necesario
+  closeDeleteModal();
+};
+
+const addTask = async (newTask) => {
+  try {
+    const response = await fetch('https://node-todos.vercel.app/users/grupo3/todos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTask)
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      todos.value.push(data);
+      toastService.add({ severity: 'success', summary: 'Success', detail: 'Task was added successfully', life: 3000 });
+    } else {
+      console.error('Error al agregar la tarea:', response.status);
+      toastService.add({ severity: 'error', summary: 'Error', detail: 'Error on adding task', life: 3000 });
+    }
+  } catch (error) {
+    console.error('Error al agregar la tarea:', error);
+    toastService.add({ severity: 'error', summary: 'Error', detail: 'Error on adding task', life: 3000 });
+  }
+};
+
+export { todos, deleteTask, deleteModal, addTask }; // Exportamos la referencia a 'todos' para que sea accesible donde sea necesario

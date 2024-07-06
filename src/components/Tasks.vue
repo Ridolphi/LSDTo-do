@@ -1,19 +1,33 @@
 <script setup>
 import { ref, computed, toRefs, onMounted } from "vue";
-import { fetchTodos, todos, deleteTask } from "../service/ToDosAPI.js";
+import { fetchTodos, todos, deleteTask, deleteModal } from "../service/ToDosAPI.js";
 import AddTask from "../components/AddTask.vue";
 
-const displayDialog = ref(false);
-const editedTask = ref(null);
 
-const openDialog = (task) => {
-  displayDialog.value = true;
+const editModal = ref(false);
+const editedTask = ref(null);
+const selectedTask = ref(null);
+// @click="deleteTask(task.id)
+
+const openEditModal = (task) => {
+  editModal.value = true;
   editedTask.value = { ...task };
   //console.log(task);
 };
 
-const closeDialog = () => {
-  displayDialog.value = false;
+const closeEditModal = () => {
+  editModal.value = false;
+};
+
+const openDeleteModal = (task) => {
+  if (task) {
+    deleteModal.value = true; // Usa deleteModal.value desde ToDosAPI.js
+    selectedTask.value = task;
+  }
+};
+const closeDeleteModal = (task) => {
+  deleteModal.value = false; // Usa deleteModal.value desde ToDosAPI.js
+
 };
 
 const departments = ref([]); //creamos departments como un array vacío
@@ -51,8 +65,13 @@ const TasksDone = computed(() =>
             <i class="pi pi-exclamation-triangle text-red-500 text-xl"></i>
           </div>
         </div>
-        <div v-if="TasksToDo.length === 0"> <span>Waiting Tasks to do... </span> <i class="pi pi-spin pi-spinner"></i>
+        <div class="mb-5" v-if="TasksToDo.length === 0"> <span><b>Waiting Tasks to do... </b></span> <i
+            class="pi pi-spin pi-spinner"></i>
         </div>
+        <div class="mb-3"><span class="text-red-700 font-medium">{{ TasksToDo.length }}</span>
+          <span class="text-500 font-medium"> Tasks waiting to be started</span>
+        </div>
+
         <div v-for="task in TasksToDo" :key="task.id" class="bg-red-100 p-2 rounded mb-4">
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
           <div class="text-500">
@@ -65,16 +84,14 @@ const TasksDone = computed(() =>
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div>
           <div class="text-right mt-2">
-            <button class="p-button p-button-danger p-button-rounded mr-2" @click="deleteTask(task.id)">
+            <button class="p-button p-button-danger p-button-rounded mr-2" @click="openDeleteModal(task)">
               <i class="pi pi-trash"></i>
             </button>
-            <button @click="openDialog(task)" class="p-button p-button-success p-button-rounded">
+            <button @click="openEditModal(task)" class="p-button p-button-success p-button-rounded">
               <i class="pi pi-pencil"></i>
             </button>
           </div>
         </div>
-        <span class="text-red-700 font-medium">{{ TasksToDo.length }}</span>
-        <span class="text-500 font-medium"> Tasks waiting to be started</span>
       </div>
     </div>
 
@@ -94,6 +111,12 @@ const TasksDone = computed(() =>
         <div v-if="TasksInProgress.length === 0" class="mb-5">
           <b>No tasks In Progress yet</b>
         </div>
+        <div class="mb-3">
+          <span class="text-yellow-700 font-medium">{{
+            TasksInProgress.length
+          }}</span>
+          <span class="text-500 font-medium"> Tasks in progress...</span>
+        </div>
         <div v-for="task in TasksInProgress" :key="task.id" class="bg-yellow-100 p-2 rounded mb-4">
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
           <div class="text-500">
@@ -106,18 +129,15 @@ const TasksDone = computed(() =>
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div>
           <div class="text-right mt-2">
-            <button class="p-button p-button-danger p-button-rounded mr-2" @click="deleteTask(task.id)">
+            <button class="p-button p-button-danger p-button-rounded mr-2" @click="openDeleteModal(task)">
               <i class="pi pi-trash"></i>
             </button>
-            <button @click="openDialog(task)" class="p-button p-button-success p-button-rounded">
+            <button @click="openEditModal(task)" class="p-button p-button-success p-button-rounded">
               <i class="pi pi-pencil"></i>
             </button>
           </div>
         </div>
-        <span class="text-yellow-700 font-medium">{{
-          TasksInProgress.length
-        }}</span>
-        <span class="text-500 font-medium"> Tasks in progress...</span>
+
       </div>
     </div>
 
@@ -136,6 +156,13 @@ const TasksDone = computed(() =>
         <div v-if="TasksDone.length === 0" class="mb-5">
           <b>No tasks completed yet</b>
         </div>
+        <div class="mb-3">
+          <span class="text-yellow-700 font-medium">{{
+            TasksDone.length
+          }}</span>
+          <span class="text-500 font-medium"> Tasks Completed</span>
+        </div>
+
         <div v-for="task in TasksDone" :key="task.id" class="bg-green-100 p-2 rounded mb-4">
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
           <div class="text-500">
@@ -148,21 +175,19 @@ const TasksDone = computed(() =>
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div>
           <div class="text-right mt-2">
-            <button class="p-button p-button-danger p-button-rounded mr-2" @click="deleteTask(task.id)">
+            <button class="p-button p-button-danger p-button-rounded mr-2" @click="openDeleteModal(task)">
               <i class="pi pi-trash"></i>
             </button>
-            <button @click="openDialog" class="p-button p-button-success p-button-rounded">
+            <button @click="openEditModal(task)" class="p-button p-button-success p-button-rounded">
               <i class="pi pi-pencil"></i>
             </button>
           </div>
         </div>
-        <span class="text-green-700 font-medium"> {{ TasksDone.length }} </span>
-        <span class="text-500 font-medium"> Tasks completed</span>
       </div>
     </div>
 
     <!-- Diálogo para editar tarea -->
-    <Dialog v-model:visible="displayDialog" modal>
+    <Dialog v-model:visible="editModal" modal>
       <div class="p-4 w">
         <h3 class="text-lg font-semibold mb-4 text-inline">Editing task...</h3>
         <div class="mb-4">
@@ -203,9 +228,25 @@ const TasksDone = computed(() =>
             type="button" @click="updateTask">
             <i class="pi pi-save text-xl"></i> Save
           </button>
-          <button @click="closeDialog"
+          <button @click="closeEditModal"
             class="bg-red-400 text-white ml-5 hover:bg-red-700 cursor-pointer font-bold py-2 px-3 rounded">
             Cancel
+          </button>
+        </div>
+      </div>
+    </Dialog>
+    <Dialog v-model:visible="deleteModal" modal>
+      <div class="p-4 w">
+        <h3 class="text-lg font-semibold mb-4 text-inline">Are you sure to delete the next task "{{ selectedTask.text
+          }}" ?</h3>
+        <div class="text-center">
+          <button @click="deleteTask(selectedTask.id)"
+            class="bg-red-400 text-white hover:bg-red-700 cursor-pointer font-bold px-3 py-2 rounded m-5">
+            Delete
+          </button>
+          <button @click="closeDeleteModal"
+            class="bg-blue-400 cursor-pointer hover:bg-blue-700 text-white font-bold px-3 py-2 rounded focus:outline-none focus:shadow-outline m-5">
+            Back
           </button>
         </div>
       </div>

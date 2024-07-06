@@ -2,7 +2,7 @@
     <button class="layout-config-button p-link" type="button" @click="onConfigButtonClick()" title="Add New Task">
         <i class="pi pi-plus"></i>
     </button>
-    <AppAddTask v-model:visible="visible" />
+    <AppAddTask v-model:visible="visible" @closeSidebar="visible = false" />
 </template>
 
 <script>

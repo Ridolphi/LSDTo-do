@@ -115,6 +115,21 @@ const app = createApp(App);
 app.use(router);
 app.use(PrimeVue, { ripple: true });
 app.use(ToastService);
+//.//.//.//.////.//.//.//.//
+
+//.//.//.//.////.//.//.//.//
+
+//.//.//.//.////.//.//.//.//
+
+const toastService = app.config.globalProperties.$toast; // Crea una instancia del servicio ToastService
+export default toastService; // Exporta la instancia del servicio ToastService... Esto se tiene que hacer ya que el servicio no puede importarse directamente en un script común (solo en un setup)
+//.//.//.//.////.//.//.//.//
+
+//.//.//.//.////.//.//.//.//
+
+//.//.//.//.////.//.//.//.//
+
+
 app.use(DialogService);
 app.use(ConfirmationService);
 
