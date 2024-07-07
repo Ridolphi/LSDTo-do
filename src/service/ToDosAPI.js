@@ -15,7 +15,7 @@ export const fetchTodos = async () => {
     const data = await response.json();
     todos.value = data; // Asignar los datos a la propiedad reactiva
   } catch (error) {
-    console.error('Error al obtener los contactos:', error);
+    console.error('Error en la obtencion de datos:', error);
   }
 };
 

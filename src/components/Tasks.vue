@@ -20,12 +20,12 @@ const departments = [
   "Marketing & sponsors",
   "Ticketing & pre-sale",
   "Stage & equipment",
-  "Production & logistics",
-  "Hospitality & VIP services",
-  "Transportation & parking",
-  "Merchandising",
-  "Medical services",
-  "Social Media & Digital Content",
+  // "Production & logistics",
+  // "Hospitality & VIP services",
+  // "Transportation & parking",
+  // "Merchandising",
+  // "Medical services",
+  // "Social Media & Digital Content",
 ];
 
 const openEditModal = (task) => {
