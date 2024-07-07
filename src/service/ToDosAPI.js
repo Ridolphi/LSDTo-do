@@ -8,6 +8,7 @@ const closeDeleteModal = () => {
   deleteModal.value = false;
 };
 
+//View Tasks
 export const fetchTodos = async () => {
   try {
     const response = await fetch("https://node-todos.vercel.app/users/grupo3/todos");
@@ -18,6 +19,7 @@ export const fetchTodos = async () => {
   }
 };
 
+//Delete Task
 const deleteTask = async (id) => {
   try {
     const response = await fetch(`https://node-todos.vercel.app/users/grupo3/todos/${id}`, {
@@ -39,6 +41,7 @@ const deleteTask = async (id) => {
   closeDeleteModal();
 };
 
+//Add Task
 const addTask = async (newTask) => {
   try {
     const response = await fetch('https://node-todos.vercel.app/users/grupo3/todos', {
@@ -63,4 +66,21 @@ const addTask = async (newTask) => {
   }
 };
 
-export { todos, deleteTask, deleteModal, addTask }; // Exportamos la referencia a 'todos' para que sea accesible donde sea necesario
+// Edit task
+
+const editTask = async (id, newTask) => {
+  try {
+    const response = await fetch(`https://node-todos.vercel.app/users/grupo3/todos/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTask)
+    })
+  }catch (error) {
+    console.error('Error al editar la tarea:', error);
+  }
+};
+
+
+export { todos, deleteTask, deleteModal, addTask, editTask }; // Exportamos la referencia a 'todos' para que sea accesible donde sea necesario

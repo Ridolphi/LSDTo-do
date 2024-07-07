@@ -1,13 +1,32 @@
 <script setup>
 import { ref, computed, toRefs, onMounted } from "vue";
-import { fetchTodos, todos, deleteTask, deleteModal } from "../service/ToDosAPI.js";
+import { useToast } from 'primevue/usetoast';
+import { fetchTodos, todos, deleteTask, editTask , deleteModal } from "../service/ToDosAPI.js";
 import AddTask from "../components/AddTask.vue";
 
 
+
+const toast = useToast(); 
 const editModal = ref(false);
 const editedTask = ref(null);
 const selectedTask = ref(null);
-// @click="deleteTask(task.id)
+
+
+
+const departments = [
+  "Artist & bookings",
+  "Gastronomy",
+  "Legal security & control",
+  "Marketing & sponsors",
+  "Ticketing & pre-sale",
+  "Stage & equipment",
+  "Production & logistics",
+  "Hospitality & VIP services",
+  "Transportation & parking",
+  "Merchandising",
+  "Medical services",
+  "Social Media & Digital Content",
+];
 
 const openEditModal = (task) => {
   editModal.value = true;
@@ -30,14 +49,14 @@ const closeDeleteModal = (task) => {
 
 };
 
-const departments = ref([]); //creamos departments como un array vacío
+// const departments = ref([]); //creamos departments como un array vacío
 onMounted(() => {
   fetchTodos()
-    .then(() => {
-      departments.value = [
-        ...new Set(todos.value.map((todo) => todo.tags.department.toUpperCase())),
-      ]; // Al cargar las tareas, obtenemos todos los departamentos únicos
-    });
+    // .then(() => {
+    //   departments.value = [
+    //     ...new Set(todos.value.map((todo) => todo.tags.department.toUpperCase())),
+    //   ]; // Al cargar las tareas, obtenemos todos los departamentos únicos
+    // });
 });
 
 const TasksToDo = computed(() =>
@@ -50,7 +69,18 @@ const TasksDone = computed(() =>
   todos.value.filter((todo) => todo.tags.status.toLowerCase() === "done")
 );
 
-
+const updateTask = () => {
+  editTask(editedTask.value.id, editedTask.value) //usamos la función editTask de ToDosAPI.js
+    .then(() => {
+      fetchTodos();
+      toast.add({ severity: 'success', summary: 'Success', detail: 'Task was updated successfully', life: 3000 });
+      closeEditModal();
+    })
+    .catch((error) => {
+      console.error('Error al editar la tarea:', error);
+      toast.add({ severity: 'error', summary: 'Error', detail: 'Error on updating task', life: 3000 });
+    });
+}
 </script>
 
 <template>
@@ -189,11 +219,16 @@ const TasksDone = computed(() =>
     <!-- Diálogo para editar tarea -->
     <Dialog v-model:visible="editModal" modal>
       <div class="p-4 w">
-        <h3 class="text-lg font-semibold mb-4 text-inline">Editing task...</h3>
+        <h3 class="text-xxl font-semibold mb-5 text-inline">Editing task...</h3>
         <div class="mb-4">
           <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             type="text" placeholder="Task Name" v-model="editedTask.text" />
+        </div>
+        <div class="mb-4">
+          <textarea v-model="editedTask.description"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Task Description..." rows="5"></textarea>
         </div>
         <div class="mb-4">
           <select v-model="editedTask.tags.department"
@@ -216,11 +251,6 @@ const TasksDone = computed(() =>
             <option value="In Progress" v-if="editedTask.tags.status !== 'In Progress'">In Progress</option>
             <option value="Done" v-if="editedTask.tags.status !== 'Done'">Done</option>
           </select>
-        </div>
-        <div class="mb-4">
-          <textarea v-model="editedTask.description"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Task Description..."></textarea>
         </div>
         <div class="flex items-center justify-end">
           <button

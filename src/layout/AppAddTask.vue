@@ -16,7 +16,14 @@ const departments = [
   "Marketing & sponsors",
   "Ticketing & pre-sale",
   "Stage & equipment",
+  // "Production & logistics",
+  // "Hospitality & VIP services",
+  // "Transportation & parking",
+  // "Merchandising",
+  // "Medical services",
+  // "Social Media & Digital Content",
 ];
+
 const statuses = ['To Do', 'In Progress', 'Done'];
 
 const taskName = ref('');
@@ -54,7 +61,7 @@ const handleSubmit = async () => {
   <Sidebar v-model:visible="visible" position="right" class="layout-config-sidebar w-26rem" @after-hide="closeSidebar">
 
     <div class="p-4 w">
-      <h3 class="text-lg font-semibold mb-4 text-inline">Add a new task...</h3>
+      <h3 class="text-xxl font-semibold mb-4 text-inline">Add a new task...</h3>
       <div class="mb-4">
         <input v-model="taskName" required
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -94,4 +101,8 @@ const handleSubmit = async () => {
   </Sidebar>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+button{
+  width: 100%;
+}
+</style>
