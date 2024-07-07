@@ -84,9 +84,9 @@ const updateTask = () => {
 </script>
 
 <template>
-  <div class="grid">
+  <div class="grid" >
     <!-- TO DO Section -->
-    <div class="col-12 lg:col-6 xl:col-4">
+    <div class="col-12 lg:col-6 xl:col-4 p-3">
       <div class="card mb-0 bg-red-200">
         <div class="flex justify-content-between mb-3">
           <span class="block text-500 font-medium mb-3">TO DO</span>
@@ -126,7 +126,7 @@ const updateTask = () => {
     </div>
 
     <!-- IN PROGRESS Section -->
-    <div class="col-12 lg:col-6 xl:col-4">
+    <div class="col-12 lg:col-6 xl:col-4 p-3">
       <div class="card mb-0 bg-yellow-300">
         <div class="flex justify-content-between mb-3">
           <div>
@@ -172,7 +172,7 @@ const updateTask = () => {
     </div>
 
     <!-- DONE Section -->
-    <div class="col-12 lg:col-6 xl:col-4">
+    <div class="col-12 lg:col-6 xl:col-4 p-3">
       <div class="card mb-0 bg-green-200">
         <div class="flex justify-content-between mb-3">
           <div>
