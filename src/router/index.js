@@ -14,6 +14,26 @@ const router = createRouter({
                     component: () => import('@/views/Dashboard.vue')
                 },
                 {
+                    path: '/team',
+                    name: 'team',
+                    component: () => import('@/views/pages/Team.vue')
+                },
+                {
+                    path: '/messages',
+                    name: 'messages',
+                    component: () => import('@/views/pages/Messages.vue')
+                },
+                {
+                    path: '/reports',
+                    name: 'reports',
+                    component: () => import('@/views/pages/Reports.vue')
+                },
+                {
+                    path: '/calendar',
+                    name: 'calendar',
+                    component: () => import('@/views/pages/Calendar.vue')
+                },
+                {
                     path: '/uikit/formlayout',
                     name: 'formlayout',
                     component: () => import('@/views/uikit/FormLayout.vue')
@@ -135,11 +155,6 @@ const router = createRouter({
                     path: '/pages/crud',
                     name: 'crud',
                     component: () => import('@/views/pages/Crud.vue')
-                },
-                {
-                    path: '/documentation',
-                    name: 'documentation',
-                    component: () => import('@/views/utilities/Documentation.vue')
                 }
             ]
         },

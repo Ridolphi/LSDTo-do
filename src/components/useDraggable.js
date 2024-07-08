@@ -1,6 +1,7 @@
 // useDraggable.js
 import { ref } from 'vue';
-import { editTask } from '../service/ToDosAPI.js';
+import { fetchTodos, todos, deleteTask, editTask, deleteModal } from "../service/ToDosAPI.js";
+
 
 export function useDraggable() {
   const draggedTask = ref(null);
@@ -22,6 +23,7 @@ export function useDraggable() {
       await editTask(updatedTask.id, updatedTask);
       draggedTask.value = null;
     }
+    fetchTodos();  //llamar al fetch para actualizar el template...
   };
 
   return { draggedTask, onDragStart, onDragOver, onDrop };
