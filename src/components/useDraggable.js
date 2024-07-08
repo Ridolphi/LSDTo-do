@@ -1,30 +1,53 @@
-// useDraggable.js
-import { ref } from 'vue';
-import { fetchTodos, todos, deleteTask, editTask, deleteModal } from "../service/ToDosAPI.js";
+import { ref } from "vue";
 
-
-export function useDraggable() {
+export function useDraggable(editTask) {
   const draggedTask = ref(null);
 
   const onDragStart = (task, event) => {
     draggedTask.value = task;
-    event.dataTransfer.effectAllowed = 'move';
+    // Agregar manejo de eventos táctiles
+    if (event.type === "touchstart") {
+      event.target.style.opacity = 0.5;
+    }
   };
 
   const onDragOver = (event) => {
     event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
   };
 
-  const onDrop = async (event, status) => {
+  const onDrop = (event, status) => {
     event.preventDefault();
     if (draggedTask.value) {
-      const updatedTask = { ...draggedTask.value, tags: { ...draggedTask.value.tags, status } };
-      await editTask(updatedTask.id, updatedTask);
+      draggedTask.value.tags.status = status;
+      editTask(draggedTask.value.id, draggedTask.value);
       draggedTask.value = null;
     }
-    fetchTodos();  //llamar al fetch para actualizar el template...
+    // Restablecer opacidad
+    if (event.type === "touchend") {
+      event.target.style.opacity = 1;
+    }
   };
 
-  return { draggedTask, onDragStart, onDragOver, onDrop };
+  // Agregar manejo de eventos táctiles
+  const onTouchStart = (task, event) => {
+    onDragStart(task, event);
+  };
+
+  const onTouchMove = (event) => {
+    event.preventDefault();
+  };
+
+  const onTouchEnd = (event, status) => {
+    onDrop(event, status);
+  };
+
+  return {
+    draggedTask,
+    onDragStart,
+    onDragOver,
+    onDrop,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+  };
 }

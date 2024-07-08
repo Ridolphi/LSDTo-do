@@ -124,6 +124,9 @@ const updateTask = () => {
           @dragstart="onDragStart(task, $event)"
           @dragover.prevent="onDragOver"
           @drop.prevent="onDrop($event, 'to do')"
+          @touchstart="onTouchStart(task, $event)"
+          @touchmove="onTouchMove($event)"
+          @touchend="onTouchEnd($event, 'to do')"
         >
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
           <div class="text-500">
@@ -187,6 +190,9 @@ const updateTask = () => {
           @dragstart="onDragStart(task, $event)"
           @dragover.prevent="onDragOver"
           @drop.prevent="onDrop($event, 'in progress')"
+          @touchstart="onTouchStart(task, $event)"
+          @touchmove="onTouchMove($event)"
+          @touchend="onTouchEnd($event, 'in progress')"
         >
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
           <div class="text-500">
@@ -243,6 +249,9 @@ const updateTask = () => {
           @dragstart="onDragStart(task, $event)"
           @dragover.prevent="onDragOver"
           @drop.prevent="onDrop($event, 'done')"
+          @touchstart="onTouchStart(task, $event)"
+          @touchmove="onTouchMove($event)"
+          @touchend="onTouchEnd($event, 'done')"
         >
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
           <div class="text-500">
