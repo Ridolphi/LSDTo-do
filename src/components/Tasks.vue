@@ -63,13 +63,13 @@ onMounted(() => {
 });
 
 const TasksToDo = computed(() =>
-  todos.value.filter((todo) => todo.tags.status.toLowerCase() === "to do")
+  todos.value.filter((todo) => todo.tags.status === "To Do")
 );
 const TasksInProgress = computed(() =>
-  todos.value.filter((todo) => todo.tags.status.toLowerCase() === "in progress")
+  todos.value.filter((todo) => todo.tags.status === "In Progress")
 );
 const TasksDone = computed(() =>
-  todos.value.filter((todo) => todo.tags.status.toLowerCase() === "done")
+  todos.value.filter((todo) => todo.tags.status === "Done")
 );
 
 const updateTask = () => {
