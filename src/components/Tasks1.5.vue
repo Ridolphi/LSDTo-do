@@ -1,18 +1,28 @@
 <script setup>
-import { ref, computed, toRefs, onMounted } from "vue";
-import { useToast } from 'primevue/usetoast';
-import { fetchTodos, todos, deleteTask, editTask , deleteModal } from "../service/ToDosAPI.js";
+import { ref, computed, onMounted } from "vue";
+import { useToast } from "primevue/usetoast";
+import { fetchTodos, todos, deleteTask, editTask, deleteModal } from "../service/ToDosAPI.js";
 import AddTask from "../components/AddTask.vue";
+import { useDraggable } from "./useDraggable.js";
 
+// Utiliza la funcionalidad de arrastrar y soltar
+const { draggedTask, onDragStart, onDragOver, onDrop } = useDraggable(editTask);
 
+// Función para manejar la actualización de tareas
+const handleTaskUpdated = (onDraggedTask) => {
+  const index = todos.value.findIndex(task => task.id === onDraggedTask.id);
+  if (index !== -1) {
+    todos.value[index] = onDraggedTask;
+  }
+};
 
-const toast = useToast(); 
+// Inicializa el toast
+const toast = useToast();
 const editModal = ref(false);
 const editedTask = ref(null);
 const selectedTask = ref(null);
 
-
-
+// Lista de departamentos
 const departments = [
   "Artist & bookings",
   "Gastronomy",
@@ -20,18 +30,12 @@ const departments = [
   "Marketing & sponsors",
   "Ticketing & pre-sale",
   "Stage & equipment",
-  // "Production & logistics",
-  // "Hospitality & VIP services",
-  // "Transportation & parking",
-  // "Merchandising",
-  // "Medical services",
-  // "Social Media & Digital Content",
 ];
 
+// Funciones para abrir y cerrar modales
 const openEditModal = (task) => {
   editModal.value = true;
   editedTask.value = { ...task };
-  //console.log(task);
 };
 
 const closeEditModal = () => {
@@ -39,26 +43,23 @@ const closeEditModal = () => {
 };
 
 const openDeleteModal = (task) => {
+  console.log(task.value);
   if (task) {
-    deleteModal.value = true; // Usa deleteModal.value desde ToDosAPI.js
+    deleteModal.value = true;
     selectedTask.value = task;
   }
 };
-const closeDeleteModal = (task) => {
-  deleteModal.value = false; // Usa deleteModal.value desde ToDosAPI.js
 
+const closeDeleteModal = () => {
+  deleteModal.value = false;
 };
 
-// const departments = ref([]); //creamos departments como un array vacío
+// Cargar las tareas al montar el componente
 onMounted(() => {
-  fetchTodos()
-    // .then(() => {
-    //   departments.value = [
-    //     ...new Set(todos.value.map((todo) => todo.tags.department.toUpperCase())),
-    //   ]; // Al cargar las tareas, obtenemos todos los departamentos únicos
-    // });
+  fetchTodos();
 });
 
+// Filtrar tareas por estado
 const TasksToDo = computed(() =>
   todos.value.filter((todo) => todo.tags.status.toLowerCase() === "to do")
 );
@@ -69,22 +70,33 @@ const TasksDone = computed(() =>
   todos.value.filter((todo) => todo.tags.status.toLowerCase() === "done")
 );
 
+// Función para actualizar la tarea
 const updateTask = () => {
-  editTask(editedTask.value.id, editedTask.value) //usamos la función editTask de ToDosAPI.js
-    .then(() => {
-      fetchTodos();
-      toast.add({ severity: 'success', summary: 'Success', detail: 'Task was updated successfully', life: 3000 });
+  editTask(editedTask.value.id, editedTask.value)
+    .then((updatedTask) => {
+      handleTaskUpdated(updatedTask);
+      toast.add({
+        severity: "success",
+        summary: "Success",
+        detail: "Task was updated successfully",
+        life: 3000,
+      });
       closeEditModal();
     })
     .catch((error) => {
-      console.error('Error al editar la tarea:', error);
-      toast.add({ severity: 'error', summary: 'Error', detail: 'Error on updating task', life: 3000 });
+      console.error("Error al editar la tarea:", error);
+      toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Error on updating task",
+        life: 3000,
+      });
     });
-}
+};
 </script>
 
 <template>
-  <div class="grid" >
+  <div class="grid">
     <!-- TO DO Section -->
     <div class="col-12 lg:col-6 xl:col-4 p-3">
       <div class="card mb-0 bg-red-200">
@@ -95,14 +107,18 @@ const updateTask = () => {
             <i class="pi pi-exclamation-triangle text-red-500 text-xl"></i>
           </div>
         </div>
-        <div class="mb-5" v-if="TasksToDo.length === 0"> <span><b>Waiting Tasks to do... </b></span> <i
-            class="pi pi-spin pi-spinner"></i>
+        <div class="mb-5" v-if="TasksToDo.length === 0">
+          <span><b>Waiting Tasks to do... </b></span>
+          <i class="pi pi-spin pi-spinner"></i>
         </div>
-        <div class="mb-3"><span class="text-red-700 font-medium">{{ TasksToDo.length }}</span>
+        <div class="mb-3">
+          <span class="text-red-700 font-medium">{{ TasksToDo.length }}</span>
           <span class="text-500 font-medium"> Tasks waiting to be started</span>
         </div>
-
-        <div v-for="task in TasksToDo" :key="task.id" class="bg-red-100 p-2 rounded mb-4">
+        <div v-for="task in TasksToDo" :key="task.id" class="bg-red-100 p-2 rounded mb-4" draggable="true"
+          @dragstart="onDragStart(task, $event)" @dragover.prevent="onDragOver" @drop.prevent="onDrop($event, 'to do')"
+          @touchstart="onTouchStart(task, $event)" @touchmove="onTouchMove($event)"
+          @touchend="onTouchEnd($event, 'to do')">
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
           <div class="text-500">
             <b><u>Description</u>:</b> {{ task.description }}
@@ -147,7 +163,10 @@ const updateTask = () => {
           }}</span>
           <span class="text-500 font-medium"> Tasks in progress...</span>
         </div>
-        <div v-for="task in TasksInProgress" :key="task.id" class="bg-yellow-100 p-2 rounded mb-4">
+        <div v-for="task in TasksInProgress" :key="task.id" class="bg-yellow-100 p-2 rounded mb-4" draggable="true"
+          @dragstart="onDragStart(task, $event)" @dragover.prevent="onDragOver"
+          @drop.prevent="onDrop($event, 'in progress')" @touchstart="onTouchStart(task, $event)"
+          @touchmove="onTouchMove($event)" @touchend="onTouchEnd($event, 'in progress')">
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
           <div class="text-500">
             <b><u>Description</u>:</b> {{ task.description }}
@@ -167,33 +186,30 @@ const updateTask = () => {
             </button>
           </div>
         </div>
-
       </div>
     </div>
 
     <!-- DONE Section -->
     <div class="col-12 lg:col-6 xl:col-4 p-3">
-      <div class="card mb-0 bg-green-200">
+      <div class="card mb-0 bg-green-300">
         <div class="flex justify-content-between mb-3">
-          <div>
-            <span class="block text-500 font-medium mb-3">DONE</span>
-          </div>
-          <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
+          <span class="block text-500 font-medium mb-3">DONE</span>
+          <div class="flex align-items-center justify-content-center bg-green-100 border-round"
             style="width: 2.5rem; height: 2.5rem">
-            <i class="pi pi-check-circle text-cyan-500 text-xl"></i>
+            <i class="pi pi-check-circle text-green-500 text-xl"></i>
           </div>
         </div>
         <div v-if="TasksDone.length === 0" class="mb-5">
-          <b>No tasks completed yet</b>
+          <b>Tasks completed</b>
         </div>
         <div class="mb-3">
-          <span class="text-yellow-700 font-medium">{{
-            TasksDone.length
-          }}</span>
-          <span class="text-500 font-medium"> Tasks Completed</span>
+          <span class="text-green-700 font-medium">{{ TasksDone.length }}</span>
+          <span class="text-500 font-medium"> Tasks completed successfully</span>
         </div>
-
-        <div v-for="task in TasksDone" :key="task.id" class="bg-green-100 p-2 rounded mb-4">
+        <div v-for="task in TasksDone" :key="task.id" class="bg-green-100 p-2 rounded mb-4" draggable="true"
+          @dragstart="onDragStart(task, $event)" @dragover.prevent="onDragOver" @drop.prevent="onDrop($event, 'done')"
+          @touchstart="onTouchStart(task, $event)" @touchmove="onTouchMove($event)"
+          @touchend="onTouchEnd($event, 'done')">
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
           <div class="text-500">
             <b><u>Description</u>:</b> {{ task.description }}
@@ -216,6 +232,7 @@ const updateTask = () => {
       </div>
     </div>
 
+    <!-- Diálogo para editar tarea -->
     <!-- Diálogo para editar tarea -->
     <Dialog v-model:visible="editModal" modal>
       <div class="p-4 w">
@@ -265,10 +282,13 @@ const updateTask = () => {
         </div>
       </div>
     </Dialog>
+
+    <!-- Diálogo para eliminar tarea -->
     <Dialog v-model:visible="deleteModal" modal>
       <div class="p-4 w">
-        <h3 class="text-lg font-semibold mb-4 text-inline">Are you sure to delete the next task "{{ selectedTask.text
-          }}" ?</h3>
+        <h3 class="text-lg font-semibold mb-4 text-inline">
+          Are you sure to delete the next task "{{ selectedTask.text }}" ?
+        </h3>
         <div class="text-center">
           <button @click="deleteTask(selectedTask.id)"
             class="bg-red-400 text-white hover:bg-red-700 cursor-pointer font-bold px-3 py-2 rounded m-5">

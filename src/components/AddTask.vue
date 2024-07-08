@@ -1,5 +1,5 @@
 <template>
-    <button class="layout-config-button p-link" type="button" @click="onConfigButtonClick()" title="Add New Task">
+    <button class="layout-config-button p-link" type="button" @click="addTaskButtonClick()" title="Add New Task">
         <i class="pi pi-plus"></i>
     </button>
     <AppAddTask v-model:visible="visible" @closeSidebar="visible = false" />
@@ -15,7 +15,7 @@ export default {
         };
     },
     methods: {
-        onConfigButtonClick() {
+        addTaskButtonClick() {
             this.visible = !this.visible;
         }
     },
