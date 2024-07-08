@@ -180,7 +180,7 @@ const updateTask = () => {
           </div>
           <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
             style="width: 2.5rem; height: 2.5rem">
-            <i class="pi pi-check text-cyan-500 text-xl"></i>
+            <i class="pi pi-check-circle text-cyan-500 text-xl"></i>
           </div>
         </div>
         <div v-if="TasksDone.length === 0" class="mb-5">

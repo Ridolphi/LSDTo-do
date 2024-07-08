@@ -77,10 +77,18 @@ const editTask = async (id, newTask) => {
       },
       body: JSON.stringify(newTask)
     })
-  }catch (error) {
+
+    if (response.ok) {
+      const updatedTask = await response.json();
+      return updatedTask;
+    } else {
+      console.error('Error al editar la tarea:', response.status);
+    }
+  } catch (error) {
     console.error('Error al editar la tarea:', error);
   }
 };
+
 
 
 export { todos, deleteTask, deleteModal, addTask, editTask }; // Exportamos la referencia a 'todos' para que sea accesible donde sea necesario
