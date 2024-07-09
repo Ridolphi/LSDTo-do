@@ -91,22 +91,22 @@ const updateTask = () => {
     <!-- TO DO Section -->
     <div class="col-12 lg:col-6 xl:col-4 p-3">
       <div>
-        <div class=" card flex justify-content-between block bg-red-200 px-5 py-3">
-          <span class="flex align-items-center text-500 font-medium">TO DO</span>
+        <div class="card flex justify-content-between block bg-red-100 px-3 py-2 mb-4">
+          <span class="flex align-items-center text-red-700 font-medium">To Do</span>
           <div class="flex align-items-center justify-content-center border-round"
             style="width: 2.5rem; height: 2.5rem">
-            <i class="pi pi-exclamation-triangle text-red-500 text-xl"></i>
+            <i class="pi pi-exclamation-triangle text-red-300 text-xl"></i>
           </div>
         </div>
         <hr>
-        <div class="mb-5" v-if="TasksToDo.length === 0"> <span><b>Waiting Tasks to do... </b></span> <i
+        <div class="mb-5 ml-3" v-if="TasksToDo.length === 0"> <span><b>Waiting Tasks to do... </b></span> <i
             class="pi pi-spin pi-spinner"></i>
         </div>
-        <div class="mb-3"><span class="text-red-700 font-medium">{{ TasksToDo.length }}</span>
+        <div class="mb-3 ml-3">
+          <span class="text-700 font-medium"><b>{{ TasksToDo.length }}</b></span>
           <span class="text-500 font-medium"> Tasks waiting to be started</span>
         </div>
-
-        <div v-for="task in TasksToDo" :key="task.id" class="card cardToDo p-2 rounded mb-4  p-3 ">
+        <div v-for="task in TasksToDo" :key="task.id" class="card cardToDo p-2 rounded mb-4 p-3">
           <div class="text-400 text-xs py-2">
             {{ task.tags.department }}
           </div>
@@ -131,88 +131,79 @@ const updateTask = () => {
 
     <!-- IN PROGRESS Section -->
     <div class="col-12 lg:col-6 xl:col-4 p-3">
-      <div class="card mb-0 bg-yellow-300">
-        <div class="flex justify-content-between mb-3">
-          <div>
-            <span class="block text-500 font-medium mb-3">IN PROGRESS [...]</span>
-          </div>
-          <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
+      <div>
+        <div class="card flex justify-content-between block bg-yellow-100 px-3 py-2 mb-4">
+          <span class="flex align-items-center text-yellow-500 font-medium">In Progress...</span>
+          <div class="flex align-items-center justify-content-center border-round"
             style="width: 2.5rem; height: 2.5rem">
-            <i class="pi pi-spin pi-spinner"></i>
-          </div>
+            <i class="pi pi-spin pi-spinner text-yellow-500"></i>
+          </div>   
         </div>
-
-        <div v-if="TasksInProgress.length === 0" class="mb-5">
+        <hr>
+        <div class="mb-5 ml-3"  v-if="TasksInProgress.length === 0">
           <b>No tasks In Progress yet</b>
         </div>
-        <div class="mb-3">
-          <span class="text-yellow-700 font-medium">{{
-            TasksInProgress.length
-          }}</span>
+        <div class="mb-3 ml-3">
+          <span class="text-700 font-medium">{{TasksInProgress.length}}</span>
           <span class="text-500 font-medium"> Tasks in progress...</span>
         </div>
-        <div v-for="task in TasksInProgress" :key="task.id" class="bg-yellow-100 p-2 rounded mb-4">
-          <div class="text-900 font-medium text-xl">{{ task.text }}</div>
-          <div class="text-500 ">
-            <b><u>Description</u>:</b> {{ task.description }}
+        <div v-for="task in TasksInProgress" :key="task.id" class="card cardInProgress p-2 rounded mb-4 p-3">
+          <div class="text-400 text-xs py-2">
+            {{ task.tags.department }}
           </div>
-          <div class="text-500">
-            <b><u>Department</u>:</b> {{ task.tags.department.toUpperCase() }}
+          <div class="text-900 font-medium text-xl">{{ task.text }}</div>
+          <div class="text-500 py-2">
+            {{ task.description }}
           </div>
           <!-- <div class="text-500">
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div> -->
           <div class="text-right mt-2">
-            <button class="p-button p-button-danger p-button-rounded mr-2" @click="openDeleteModal(task)">
+            <button class="btnDelete mr-2" @click="openDeleteModal(task)">
               <i class="pi pi-trash"></i>
             </button>
-            <button @click="openEditModal(task)" class="p-button p-button-success p-button-rounded">
+            <button @click="openEditModal(task)" class="btnEdit">
               <i class="pi pi-pencil"></i>
             </button>
           </div>
         </div>
-
       </div>
     </div>
 
     <!-- DONE Section -->
     <div class="col-12 lg:col-6 xl:col-4 p-3">
-      <div class="card mb-0 bg-green-200">
-        <div class="flex justify-content-between mb-3">
-          <div>
-            <span class="block text-500 font-medium mb-3">DONE</span>
-          </div>
-          <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
+      <div>
+        <div class="card flex justify-content-between block bg-green-100 px-3 py-2 mb-4">
+          <span class="flex align-items-center text-green-600 font-medium">Done</span>
+          <div class="flex align-items-center justify-content-center border-round"
             style="width: 2.5rem; height: 2.5rem">
-            <i class="pi pi-check-circle text-cyan-500 text-xl"></i>
+            <i class="pi pi-check-circle text-green-600"></i>
+          </div>   
+        </div>
+        <hr>
+        <div class="mb-5 ml-3"  v-if="TasksDone.length === 0">
+          <b>No tasks In Progress yet</b>
+        </div>
+        <div class="mb-3 ml-3">
+          <span class="text-700 font-medium">{{TasksDone.length}}</span>
+          <span class="text-500 font-medium"> Tasks Completed.</span>
+        </div>
+        <div v-for="task in TasksInProgress" :key="task.id" class="card cardDone p-2 rounded mb-4 p-3">
+          <div class="text-400 text-xs py-2">
+            {{ task.tags.department }}
           </div>
-        </div>
-        <div v-if="TasksDone.length === 0" class="mb-5">
-          <b>No tasks completed yet</b>
-        </div>
-        <div class="mb-3">
-          <span class="text-yellow-700 font-medium">{{
-            TasksDone.length
-          }}</span>
-          <span class="text-500 font-medium"> Tasks Completed</span>
-        </div>
-
-        <div v-for="task in TasksDone" :key="task.id" class="bg-green-100 p-2 rounded mb-4">
           <div class="text-900 font-medium text-xl">{{ task.text }}</div>
-          <div class="text-500">
-            <b><u>Description</u>:</b> {{ task.description }}
-          </div>
-          <div class="text-500">
-            <b><u>Department</u>:</b> {{ task.tags.department.toUpperCase() }}
+          <div class="text-500 py-2">
+            {{ task.description }}
           </div>
           <!-- <div class="text-500">
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
           </div> -->
           <div class="text-right mt-2">
-            <button class="p-button p-button-danger p-button-rounded mr-2" @click="openDeleteModal(task)">
+            <button class="btnDelete mr-2" @click="openDeleteModal(task)">
               <i class="pi pi-trash"></i>
             </button>
-            <button @click="openEditModal(task)" class="p-button p-button-success p-button-rounded">
+            <button @click="openEditModal(task)" class="btnEdit">
               <i class="pi pi-pencil"></i>
             </button>
           </div>
@@ -331,5 +322,21 @@ const updateTask = () => {
 
 .cardToDo:hover {
   box-shadow: 0px 2px 10px 0 rgba(245, 17, 1, 0.5) !important;
+}
+
+.cardInProgress {
+  transition: 0.3s;
+}
+
+.cardInProgress:hover {
+  box-shadow: 0px 2px 10px 0 rgba(246, 222, 50, 0.9) !important;
+}
+
+.cardDone {
+  transition: 0.3s;
+}
+
+.cardDone:hover {
+  box-shadow: 0px 2px 10px 0 rgba(50, 183, 130, 0.9) !important;
 }
 </style>
