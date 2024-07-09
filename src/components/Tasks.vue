@@ -114,9 +114,9 @@ const updateTask = () => {
           <div class="text-500 py-2">
             {{ task.description }}
           </div>
-          <!-- <div class="text-500">
+          <div class="text-500">
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
-          </div> -->
+          </div>
           <div class="text-right mt-2">
             <button class="btnDelete mr-2" @click="openDeleteModal(task)">
               <i class="pi pi-trash"></i>
@@ -137,14 +137,14 @@ const updateTask = () => {
           <div class="flex align-items-center justify-content-center border-round"
             style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-spin pi-spinner text-yellow-500"></i>
-          </div>   
+          </div>
         </div>
         <hr>
-        <div class="mb-5 ml-3"  v-if="TasksInProgress.length === 0">
+        <div class="mb-5 ml-3" v-if="TasksInProgress.length === 0">
           <b>No tasks In Progress yet</b>
         </div>
         <div class="mb-3 ml-3">
-          <span class="text-700 font-medium">{{TasksInProgress.length}}</span>
+          <span class="text-700 font-medium">{{ TasksInProgress.length }}</span>
           <span class="text-500 font-medium"> Tasks in progress...</span>
         </div>
         <div v-for="task in TasksInProgress" :key="task.id" class="card cardInProgress p-2 rounded mb-4 p-3">
@@ -155,9 +155,9 @@ const updateTask = () => {
           <div class="text-500 py-2">
             {{ task.description }}
           </div>
-          <!-- <div class="text-500">
+          <div class="text-500">
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
-          </div> -->
+          </div>
           <div class="text-right mt-2">
             <button class="btnDelete mr-2" @click="openDeleteModal(task)">
               <i class="pi pi-trash"></i>
@@ -178,17 +178,17 @@ const updateTask = () => {
           <div class="flex align-items-center justify-content-center border-round"
             style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-check-circle text-green-600"></i>
-          </div>   
+          </div>
         </div>
         <hr>
-        <div class="mb-5 ml-3"  v-if="TasksDone.length === 0">
+        <div class="mb-5 ml-3" v-if="TasksDone.length === 0">
           <b>No tasks In Progress yet</b>
         </div>
         <div class="mb-3 ml-3">
-          <span class="text-700 font-medium">{{TasksDone.length}}</span>
+          <span class="text-700 font-medium">{{ TasksDone.length }}</span>
           <span class="text-500 font-medium"> Tasks Completed.</span>
         </div>
-        <div v-for="task in TasksInProgress" :key="task.id" class="card cardDone p-2 rounded mb-4 p-3">
+        <div v-for="task in TasksDone" :key="task.id" class="card cardDone p-2 rounded mb-4 p-3">
           <div class="text-400 text-xs py-2">
             {{ task.tags.department }}
           </div>
@@ -196,9 +196,9 @@ const updateTask = () => {
           <div class="text-500 py-2">
             {{ task.description }}
           </div>
-          <!-- <div class="text-500">
+          <div class="text-500">
             <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
-          </div> -->
+          </div>
           <div class="text-right mt-2">
             <button class="btnDelete mr-2" @click="openDeleteModal(task)">
               <i class="pi pi-trash"></i>
@@ -212,7 +212,7 @@ const updateTask = () => {
     </div>
 
     <!-- Diálogo para editar tarea -->
-    <Dialog v-model:visible="editModal" modal>
+    <Dialog v-model:visible="editModal" modal :style="{ width: '400px' }">
       <div class="p-4 w">
         <h3 class="text-xxl font-semibold mb-5 text-inline">Editing task...</h3>
         <div class="mb-4">
@@ -248,12 +248,10 @@ const updateTask = () => {
           </select>
         </div>
         <div class="flex items-center justify-center editsButtons">
-          <Button
-          label="Save" severity="info" raised  @click="updateTask" class="mr-5">
+          <Button label="Save" severity="success" raised @click="updateTask" class="mr-5">
           </Button>
-          <Button @click="closeEditModal"
-          label="Delete" severity="danger" raised >
-            Cancel
+          <Button @click="closeEditModal" label="Cancel" severity="danger" plain text raised>
+
           </Button>
         </div>
       </div>
@@ -263,9 +261,9 @@ const updateTask = () => {
         <h3 class="text-lg font-semibold mb-5 text-inline">Are you sure to delete the next task "{{ selectedTask.text
           }}" ?</h3>
         <div class="text-center">
-          <Button @click="deleteTask(selectedTask.id)" label="Delete" severity="danger" raised >
+          <Button @click="deleteTask(selectedTask.id)" label="Delete" severity="danger" raised>
           </Button>
-            
+
           <Button @click="closeDeleteModal" label="Back" plain text raised class="ml-5">
           </Button>
         </div>
