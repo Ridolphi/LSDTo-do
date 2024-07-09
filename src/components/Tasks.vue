@@ -247,32 +247,27 @@ const updateTask = () => {
             <option value="Done" v-if="editedTask.tags.status !== 'Done'">Done</option>
           </select>
         </div>
-        <div class="flex items-center justify-end">
-          <button
-            class="bg-blue-400 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button" @click="updateTask">
-            <i class="pi pi-save text-xl"></i> Save
-          </button>
-          <button @click="closeEditModal"
-            class="bg-red-400 text-white ml-5 hover:bg-red-700 cursor-pointer font-bold py-2 px-3 rounded">
+        <div class="flex items-center justify-center editsButtons">
+          <Button
+          label="Save" severity="info" raised  @click="updateTask" class="mr-5">
+          </Button>
+          <Button @click="closeEditModal"
+          label="Delete" severity="danger" raised >
             Cancel
-          </button>
+          </Button>
         </div>
       </div>
     </Dialog>
     <Dialog v-model:visible="deleteModal" modal>
       <div class="p-4 w">
-        <h3 class="text-lg font-semibold mb-4 text-inline">Are you sure to delete the next task "{{ selectedTask.text
+        <h3 class="text-lg font-semibold mb-5 text-inline">Are you sure to delete the next task "{{ selectedTask.text
           }}" ?</h3>
         <div class="text-center">
-          <button @click="deleteTask(selectedTask.id)"
-            class="bg-red-400 text-white hover:bg-red-700 cursor-pointer font-bold px-3 py-2 rounded m-5">
-            Delete
-          </button>
-          <button @click="closeDeleteModal"
-            class="bg-blue-400 cursor-pointer hover:bg-blue-700 text-white font-bold px-3 py-2 rounded focus:outline-none focus:shadow-outline m-5">
-            Back
-          </button>
+          <Button @click="deleteTask(selectedTask.id)" label="Delete" severity="danger" raised >
+          </Button>
+            
+          <Button @click="closeDeleteModal" label="Back" plain text raised class="ml-5">
+          </Button>
         </div>
       </div>
     </Dialog>
@@ -338,5 +333,10 @@ const updateTask = () => {
 
 .cardDone:hover {
   box-shadow: 0px 2px 10px 0 rgba(50, 183, 130, 0.9) !important;
+}
+
+.editsButtons {
+  width: max-content;
+  margin: auto;
 }
 </style>
