@@ -4,15 +4,11 @@ import { useToast } from 'primevue/usetoast';
 import { fetchTodos, todos, deleteTask, editTask, deleteModal } from "../service/ToDosAPI.js";
 import AddTask from "../components/AddTask.vue";
 
-
-
 const toast = useToast();
 const editModal = ref(false);
 const editedTask = ref(null);
 const originalTask = ref(null);
 const selectedTask = ref(null);
-
-
 
 const departments = [
     "Artist & bookings",
@@ -21,19 +17,12 @@ const departments = [
     "Marketing & sponsors",
     "Ticketing & pre-sale",
     "Stage & equipment",
-    // "Production & logistics",
-    // "Hospitality & VIP services",
-    // "Transportation & parking",
-    // "Merchandising",
-    // "Medical services",
-    // "Social Media & Digital Content",
 ];
 
 const openEditModal = (task) => {
     editModal.value = true;
     originalTask.value = JSON.parse(JSON.stringify(task));
     editedTask.value = JSON.parse(JSON.stringify(task));
-    //console.log(task);
 };
 
 const closeEditModal = () => {
@@ -43,39 +32,33 @@ const closeEditModal = () => {
 
 const openDeleteModal = (task) => {
     if (task) {
-        deleteModal.value = true; // Usa deleteModal.value desde ToDosAPI.js
+        deleteModal.value = true;
         selectedTask.value = task;
     }
 };
-const closeDeleteModal = (task) => {
-    deleteModal.value = false; // Usa deleteModal.value desde ToDosAPI.js
 
+const closeDeleteModal = () => {
+    deleteModal.value = false;
 };
 
-// const departments = ref([]); //creamos departments como un array vacío
 onMounted(() => {
-    fetchTodos()
-    // .then(() => {
-    //   departments.value = [
-    //     ...new Set(todos.value.map((todo) => todo.tags.department.toUpperCase())),
-    //   ]; // Al cargar las tareas, obtenemos todos los departamentos únicos
-    // });
+    fetchTodos();
 });
 
 const TasksToDo = computed(() =>
-    todos.value.filter((todo) => todo.tags.status === "To Do")
+    todos.value.filter((todo) => todo.tags.status === "To Do" && todo.tags.department === "Artist & bookings")
 );
+
 const TasksInProgress = computed(() =>
-    todos.value.filter((todo) => todo.tags.status === "In Progress")
+    todos.value.filter((todo) => todo.tags.status === "In Progress" && todo.tags.department === "Artist & bookings")
 );
+
 const TasksDone = computed(() =>
-    todos.value.filter((todo) => todo.tags.status === "Done")
+    todos.value.filter((todo) => todo.tags.status === "Done" && todo.tags.department === "Artist & bookings")
 );
-const ArtistBookingsTasks = computed(() =>
-    todos.value.filter((todo) => todo.tags.department === "Artist & bookings"));
 
 const updateTask = () => {
-    editTask(editedTask.value.id, editedTask.value) //usamos la función editTask de ToDosAPI.js
+    editTask(editedTask.value.id, editedTask.value)
         .then(() => {
             fetchTodos();
             toast.add({ severity: 'success', summary: 'Success', detail: 'Task was updated successfully', life: 3000 });
@@ -109,7 +92,7 @@ const updateTask = () => {
                     <span class="text-500 font-medium"> Tasks waiting to be started</span>
                 </div>
                 <section v-for="task in TasksToDo" :key="task.id" class="card cardToDo p-2 rounded mb-4 p-3">
-                    <div v-if='task.tags.department === "Artist & bookings"'>
+                    <div>
                         <div class="text-400 text-xs py-2">
                             {{ task.tags.department }}
                         </div>
@@ -255,7 +238,6 @@ const updateTask = () => {
                     <Button label="Save" severity="success" raised @click="updateTask" class="mr-5">
                     </Button>
                     <Button @click="closeEditModal" label="Cancel" severity="danger" plain text raised>
-
                     </Button>
                 </div>
             </div>
@@ -268,7 +250,6 @@ const updateTask = () => {
                 <div class="text-center">
                     <Button @click="deleteTask(selectedTask.id)" label="Delete" severity="danger" raised>
                     </Button>
-
                     <Button @click="closeDeleteModal" label="Back" plain text raised class="ml-5">
                     </Button>
                 </div>
