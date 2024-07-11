@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, toRefs, onMounted } from "vue";
+
 import { useToast } from 'primevue/usetoast';
 import { fetchTodos, todos, deleteTask, editTask, deleteModal } from "../service/ToDosAPI.js";
 import AddTask from "../components/AddTask.vue";
@@ -246,7 +247,7 @@ const updateTask = () => {
             <div class="p-4 w">
                 <h3 class="text-lg font-semibold mb-5 text-inline">Are you sure to delete the next task "{{
                     selectedTask.text
-                    }}" ?</h3>
+                }}" ?</h3>
                 <div class="text-center">
                     <Button @click="deleteTask(selectedTask.id)" label="Delete" severity="danger" raised>
                     </Button>
