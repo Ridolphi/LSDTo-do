@@ -1,6 +1,6 @@
 <script setup>
 import Calendar from 'primevue/calendar';
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 // Definir los valores reactivos
 const value = ref([]);
@@ -9,22 +9,35 @@ const disabledDays = ref([]);  // Inicializar si es necesario
 
 // Función para manejar la selección de fecha en el calendario
 function handleSelect(event) {
-    console.log('Selected date:', event.target.value);
+    console.log('Input task:', event.target.value);
 }
 
-computed(() => {
-const calendario = document.getElementById(pv_id_1_panel);
-calendario.addEventListener('click', (event) => {
-    console.log(event);
-})
-})
+// Función para formatear el mes y año
+function formatMonthYear(monthYear) {
+    const monthYearRegex = /([a-zA-Z]+)(\d{4})/;
+    const match = monthYear.match(monthYearRegex);  //match coge el evento (monthYear) y hace la funcion match creando un array
+    return `${match[1]} ${match[2]}`; // devolvemos el elemento 1 (el mes) y el 2(el año) por separado
+}
 
+// Agregar listener de click al calendario cuando se muestra
+function handleCalendarShow() {
+        const calendario = document.querySelector('.p-datepicker');
+        if (calendario) {
+            calendario.addEventListener('click', (event) => {
+                const day = event.target.innerText;
+                const monthYearClicked = calendario.querySelector('.p-datepicker-title').innerText;
+                const monthYear = formatMonthYear(monthYearClicked);
+                console.log('Clicked on calendar:', day, monthYear);
+            });
+        }
+}
 </script>
 
 <template>
 <Calendar 
     style="width: 100vw !important;" 
     placeholder="Select a date" 
+    :yearRange="['2020', '2030']" 
     :minDate="new Date()"  
     :disabledDates="disabledDates" 
     :disabledDays="disabledDays" 
@@ -32,6 +45,7 @@ calendario.addEventListener('click', (event) => {
     :readonlyInput="true" 
     :value="value" 
     @change="handleSelect" 
+    @show="handleCalendarShow"
 />
 <section class="tasks">
     <div class="card"><p>17/07/2024</p><p>Task to do</p></div>
