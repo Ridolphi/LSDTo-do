@@ -14,7 +14,7 @@ const model = ref([
     ],
   },
   {
-    label: "Organization",
+    label: "Departments",  //Organization
     items: [
       {
         label: "Artist & bookings",
@@ -24,28 +24,28 @@ const model = ref([
       {
         label: "Gastronomy",
         icon: "pi pi-fw pi-cart-plus",
-        to: "/uikit/floatlabel",
+        to: "/gastronomy",
       },
       {
         label: "Legal, security & control",
         icon: "pi pi-fw pi-shield",
-        to: "/uikit/invalidstate",
+        to: "/legal-security-control",
       },
       {
         label: "Marketing & sponsors",
         icon: "pi pi-fw pi-volume-up",
-        to: "/uikit/button",
+        to: "/marketing-sponsors",
         class: "rotated-icon",
       },
       {
         label: "Ticketing & pre-sale",
         icon: "pi pi-fw pi-ticket",
-        to: "/uikit/table",
+        to: "/ticketing-presale",
       },
       {
         label: "Stage & equipment",
         icon: "pi pi-fw pi-sliders-v",
-        to: "/uikit/list",
+        to: "/stage-equipment",
       }
     ]
   }

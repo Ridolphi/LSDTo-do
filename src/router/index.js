@@ -41,32 +41,32 @@ const router = createRouter({
                 {
                     path: '/artist-bookings',
                     name: '',
-                    component: () => import('@/views/ArtistBookingsView.vue')
+                    component: () => import('@/views/departments/ArtistBookingsView.vue')
                 },
                 {
-                    path: '/uikit/floatlabel',
-                    name: 'floatlabel',
-                    component: () => import('@/views/uikit/FloatLabel.vue')
+                    path: '/gastronomy',
+                    name: 'gastronomy',
+                    component: () => import('@/views/departments/GastronomyView.vue')
                 },
                 {
-                    path: '/uikit/invalidstate',
-                    name: 'invalidstate',
-                    component: () => import('@/views/uikit/InvalidState.vue')
+                    path: '/legal-security-control',
+                    name: 'legalsecurity&control',
+                    component: () => import('@/views/departments/LegalSecurityControlView.vue')
                 },
                 {
-                    path: '/uikit/button',
-                    name: 'button',
-                    component: () => import('@/views/uikit/Button.vue')
+                    path: '/marketing-sponsors',
+                    name: 'marketing-sponsors',
+                    component: () => import('@/views/departments/MarketingSponsorsView.vue')
                 },
                 {
-                    path: '/uikit/table',
-                    name: 'table',
-                    component: () => import('@/views/uikit/Table.vue')
+                    path: '/ticketing-presale',
+                    name: 'ticketing-presale',
+                    component: () => import('@/views/departments/TicketingPresaleView.vue')
                 },
                 {
-                    path: '/uikit/list',
-                    name: 'list',
-                    component: () => import('@/views/uikit/List.vue')
+                    path: '/stage-equipment',
+                    name: 'stage-equipment',
+                    component: () => import('@/views/departments/StageEquipmentView.vue')
                 },
                 {
                     path: '/uikit/tree',
@@ -130,16 +130,6 @@ const router = createRouter({
                     path: '/uikit/misc',
                     name: 'misc',
                     component: () => import('@/views/uikit/Misc.vue')
-                },
-                {
-                    path: '/blocks',
-                    name: 'blocks',
-                    component: () => import('@/views/utilities/Blocks.vue')
-                },
-                {
-                    path: '/utilities/icons',
-                    name: 'icons',
-                    component: () => import('@/views/utilities/Icons.vue')
                 },
                 {
                     path: '/pages/timeline',
