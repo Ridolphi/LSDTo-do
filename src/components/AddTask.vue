@@ -3,6 +3,7 @@
         <i class="pi pi-plus"></i>
     </button>
     <AppAddTask v-model:visible="visible" @closeSidebar="visible = false" />
+    <!-- @closeSidebar="visible = false" -->
 </template>
 
 <script>

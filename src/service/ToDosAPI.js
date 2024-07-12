@@ -14,6 +14,7 @@ export const fetchTodos = async () => {
     const response = await fetch("https://node-todos.vercel.app/users/grupo3/todos");
     const data = await response.json();
     todos.value = data; // Asignar los datos a la propiedad reactiva
+    //console.log(data);
   } catch (error) {
     console.error('Error en la obtencion de datos:', error);
   }
@@ -51,6 +52,7 @@ const addTask = async (newTask) => {
       },
       body: JSON.stringify(newTask)
     });
+
     if (response.ok) {
       const data = await response.json();
       todos.value.push(data);

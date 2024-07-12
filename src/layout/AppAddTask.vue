@@ -26,6 +26,13 @@ const departments = [
 
 const statuses = ['To Do', 'In Progress', 'Done'];
 
+
+const date = new Date();
+
+const dateString = date.toLocaleString();
+
+
+
 const taskName = ref('');
 const taskDescription = ref('');
 const selectedDepartment = ref('');
@@ -44,21 +51,24 @@ const handleSubmit = async () => {
     author: 'grupo3',
     tags: {
       department: selectedDepartment.value,
-      status: selectedStatus.value
+      status: selectedStatus.value,
+      date: dateString,
     }
   };
 
   await addTask(newTask);
+  console.log(newTask);
   taskName.value = '';
   taskDescription.value = '';
   selectedDepartment.value = '';
   selectedStatus.value = '';
+  date.value = '';
   emit('closeSidebar');
 };
 </script>
 
 <template>
-  <Sidebar v-model:visible="visible" position="right" class="layout-config-sidebar w-26rem" @after-hide="closeSidebar">
+  <Sidebar v-model:visible="visible" position="right" class="layout-config-sidebar w-26rem">
 
     <div class="p-4 w">
       <h3 class="text-xxl font-semibold mb-4 text-inline">Add a new task...</h3>
@@ -90,6 +100,9 @@ const handleSubmit = async () => {
           </option>
         </select>
       </div>
+      <div class="mb-4">
+        <input type="hidden" v-model="dateString" />
+      </div>
       <div class="flex items-center justify-end">
         <button @click="handleSubmit"
           class="bg-green-400 cursor-pointer hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -102,7 +115,7 @@ const handleSubmit = async () => {
 </template>
 
 <style lang="scss" scoped>
-button{
+button {
   width: 100%;
 }
 </style>

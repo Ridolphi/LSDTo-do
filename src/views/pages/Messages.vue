@@ -7,7 +7,17 @@ console.log(gaston);
 
     <div class="container">
         <div class="sidebar">
-            <h2>Team G3 </h2>
+            <div class="card" style="background-color: #007bff; border: none;">
+                <AvatarGroup>
+                    <Avatar :image="'/demo/images/avatar/amyelsner.png'" size="large" shape="circle"></Avatar>
+                    <Avatar :image="'/demo/images/avatar/asiyajavayant.png'" size="large" shape="circle"></Avatar>
+                    <Avatar :image="'/demo/images/avatar/onyamalimba.png'" size="large" shape="circle"></Avatar>
+                    <Avatar :image="'/demo/images/avatar/ionibowcher.png'" size="large" shape="circle"></Avatar>
+                    <Avatar :image="'/demo/images/avatar/xuxuefeng.png'" size="large" shape="circle"></Avatar>
+                    <Avatar label="+2" shape="circle" size="large"
+                        :style="{ 'background-color': '#9c27b0', color: '#ffffff' }"></Avatar>
+                </AvatarGroup>
+            </div>
             <ul class="user-list">
                 <li class="mb-5">
                     Gastón <span class="notification-bubble">3</span>
@@ -15,7 +25,7 @@ console.log(gaston);
                 <li class="mb-5">
                     Adri <span class="notification-bubble">1</span>
                 </li>
-                <li class="mb-5">
+                <li class="focusedChat mb-5">
                     Sandy
                 </li>
                 <li class="mb-5">
@@ -37,10 +47,12 @@ console.log(gaston);
             </ul>
         </div>
         <div class="chat-container">
-            <div class="chat-header">
-                <h2>Chat</h2>
+            <div class="chat-header" style="position: relative; height: 50px;">
+                <h3 style="color:white"> Sandy's chat</h3>
+                <i class="pi pi-bell mr-4 "
+                    style="font-size: 2rem; color: white; position: absolute; top: 15px; right: 5px;" v-badge="2"></i>
             </div>
-            <div class="chat-messages">
+            <div class="chat-messages px-5 py-5">
                 <div class="message received">
                     <p>Hola, ¿cómo estás?</p>
                     <span class="timestamp">10:30 AM</span>
@@ -191,5 +203,12 @@ body {
 
 .chat-input button:hover {
     background-color: #0056b3;
+}
+
+.focusedChat {
+    background-color: #ffffff !important;
+    color: black;
+    padding: 20px !important;
+    border-radius: 8px;
 }
 </style>

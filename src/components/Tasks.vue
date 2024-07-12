@@ -1,8 +1,9 @@
 <script setup>
-import { ref, computed, toRefs, onMounted } from "vue";
+import { ref, computed, toRefs, onMounted, onBeforeMount } from "vue";
 import { useToast } from 'primevue/usetoast';
 import { fetchTodos, todos, deleteTask, editTask, deleteModal } from "../service/ToDosAPI.js";
 import AddTask from "../components/AddTask.vue";
+import { FilterMatchMode } from 'primevue/api';
 
 
 
@@ -12,7 +13,15 @@ const editedTask = ref(null);
 const originalTask = ref(null);
 const selectedTask = ref(null);
 
-
+const filters = ref({});
+onBeforeMount(() => {
+  initFilters();
+});
+const initFilters = () => {
+  filters.value = {
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS }
+  };
+};
 
 const departments = [
   "Artist & bookings",
@@ -28,6 +37,7 @@ const departments = [
   // "Medical services",
   // "Social Media & Digital Content",
 ];
+
 
 const openEditModal = (task) => {
   editModal.value = true;
@@ -52,14 +62,8 @@ const closeDeleteModal = (task) => {
 
 };
 
-// const departments = ref([]); //creamos departments como un array vacío
 onMounted(() => {
   fetchTodos()
-  // .then(() => {
-  //   departments.value = [
-  //     ...new Set(todos.value.map((todo) => todo.tags.department.toUpperCase())),
-  //   ]; // Al cargar las tareas, obtenemos todos los departamentos únicos
-  // });
 });
 
 const TasksToDo = computed(() =>
@@ -71,6 +75,10 @@ const TasksInProgress = computed(() =>
 const TasksDone = computed(() =>
   todos.value.filter((todo) => todo.tags.status === "Done")
 );
+const filteredDepartments = computed(() => {
+  return departments.filter(department => department !== editedTask.value?.tags?.department);
+});
+
 
 const updateTask = () => {
   editTask(editedTask.value.id, editedTask.value) //usamos la función editTask de ToDosAPI.js
@@ -85,8 +93,18 @@ const updateTask = () => {
     });
 }
 </script>
-
 <template>
+
+
+  <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center mb-4  rounded ">
+    <h5 class="m-0">All departments</h5>
+    <IconField iconPosition="left" class="block mt-2 md:mt-0">
+      <InputIcon class="pi pi-search" />
+      <InputText class="w-full sm:w-auto" v-model="filters['global'].value" placeholder="Search task..." />
+    </IconField>
+  </div>
+
+
   <div class="grid">
     <!-- TO DO Section -->
     <div class="col-12 lg:col-6 xl:col-4 p-3">
@@ -115,7 +133,7 @@ const updateTask = () => {
             {{ task.description }}
           </div>
           <div class="text-500">
-            <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
+            <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
           </div>
           <div class="text-right mt-2">
             <button class="btnDelete mr-2" @click="openDeleteModal(task)">
@@ -156,7 +174,7 @@ const updateTask = () => {
             {{ task.description }}
           </div>
           <div class="text-500">
-            <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
+            <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
           </div>
           <div class="text-right mt-2">
             <button class="btnDelete mr-2" @click="openDeleteModal(task)">
@@ -197,7 +215,7 @@ const updateTask = () => {
             {{ task.description }}
           </div>
           <div class="text-500">
-            <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
+            <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
           </div>
           <div class="text-right mt-2">
             <button class="btnDelete mr-2" @click="openDeleteModal(task)">
@@ -230,7 +248,7 @@ const updateTask = () => {
             <option :value="editedTask.tags.department" selected>
               {{ editedTask.tags.department }}
             </option>
-            <option v-for="department in departments" :value="department">
+            <option v-for="department in filteredDepartments" :key="department" :value="department">
               {{ department }}
             </option>
           </select>
