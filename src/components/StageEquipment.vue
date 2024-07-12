@@ -101,7 +101,7 @@ const updateTask = () => {
                             {{ task.description }}
                         </div>
                         <div class="text-500">
-                            <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
+                            <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
                         </div>
                         <div class="text-right mt-2">
                             <button class="btnDelete mr-2" @click="openDeleteModal(task)">
@@ -143,7 +143,7 @@ const updateTask = () => {
                         {{ task.description }}
                     </div>
                     <div class="text-500">
-                        <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
+                        <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
                     </div>
                     <div class="text-right mt-2">
                         <button class="btnDelete mr-2" @click="openDeleteModal(task)">
@@ -184,7 +184,7 @@ const updateTask = () => {
                         {{ task.description }}
                     </div>
                     <div class="text-500">
-                        <b><u>Status</u>:</b> {{ task.tags.status.toUpperCase() }}
+                        <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
                     </div>
                     <div class="text-right mt-2">
                         <button class="btnDelete mr-2" @click="openDeleteModal(task)">
