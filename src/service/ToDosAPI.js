@@ -51,7 +51,6 @@ const addTask = async (newTask) => {
       },
       body: JSON.stringify(newTask)
     });
-
     if (response.ok) {
       const data = await response.json();
       todos.value.push(data);

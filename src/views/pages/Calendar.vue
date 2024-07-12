@@ -12,7 +12,7 @@ const mensaje = ref('');
 function handleSelect(event) {
     const mensajeInput = event.target.value;  // Crear variable nueva para el valor del input de texto
     mensaje.value = mensajeInput;  // añadir el valor el input a una variable global
-    // console.log('Input task:', mensaje);
+    //console.log('Input task:', event);
 }
 
 // Función para formatear el mes y año
@@ -22,7 +22,7 @@ function formatMonthYear(monthYear) {
     return `${match[1]} ${match[2]}`; // devolvemos el elemento 1 (el mes) y el 2(el año) por separado
 }
 
-// Agregar listener de click al calendario cuando se muestra
+// Agregar listener de click al calendario cuando se muestra    
 function handleCalendarShow() {
     const calendario = document.querySelector('.p-datepicker');
     if (calendario) {
@@ -30,7 +30,7 @@ function handleCalendarShow() {
             const day = event.target.innerText;
             const monthYearClicked = calendario.querySelector('.p-datepicker-title').innerText;
             const monthYear = formatMonthYear(monthYearClicked);
-            console.log('Clicked on calendar:', day, monthYear);
+            //console.log('Clicked on calendar:', day, monthYear);
             document.querySelector('.task').innerText = `${mensaje.value} : ${day} ${monthYear}`;
         });
     }

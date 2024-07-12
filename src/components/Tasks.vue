@@ -210,7 +210,6 @@ const updateTask = () => {
         </div>
       </div>
     </div>
-
     <!-- Diálogo para editar tarea -->
     <Dialog v-model:visible="editModal" modal :style="{ width: '400px' }">
       <div class="p-4 w">
