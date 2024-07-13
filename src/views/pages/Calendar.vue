@@ -1,5 +1,6 @@
 <script setup>
 import Calendar from 'primevue/calendar';
+import Card from 'primevue/card';
 import { ref } from "vue";
 
 // Definir los valores reactivos
@@ -8,12 +9,12 @@ const disabledDates = ref([]); // Inicializar si es necesario
 const disabledDays = ref([]);  // Inicializar si es necesario
 
 // Función para manejar la selección de fecha en el calendario
-const mensaje = ref('');
-function handleSelect(event) {
-    const mensajeInput = event.target.value;  // Crear variable nueva para el valor del input de texto
-    mensaje.value = mensajeInput;  // añadir el valor el input a una variable global
-    //console.log('Input task:', event);
-}
+// const mensaje = ref('');
+// function handleSelect(event) {
+//     const mensajeInput = event.target.value;  // Crear variable nueva para el valor del input de texto
+//     mensaje.value = mensajeInput;  // añadir el valor el input a una variable global
+//     //console.log('Input task:', event);
+// }
 
 // Función para formatear el mes y año
 function formatMonthYear(monthYear) {
@@ -30,8 +31,10 @@ function handleCalendarShow() {
             const day = event.target.innerText;
             const monthYearClicked = calendario.querySelector('.p-datepicker-title').innerText;
             const monthYear = formatMonthYear(monthYearClicked);
-            //console.log('Clicked on calendar:', day, monthYear);
-            document.querySelector('.task').innerText = `${mensaje.value} : ${day} ${monthYear}`;
+            console.log('Clicked on calendar:', day, monthYear);
+            const task = document.querySelector('.task');
+            task.classList.remove('hidden');
+            task.innerHTML = `<b> Selected day: ${day} ${monthYear} </b>`;;
         });
     }
 }
@@ -40,9 +43,11 @@ function handleCalendarShow() {
 
 <template>
     <Calendar style="width: 100vw !important;" placeholder="Add a task" :yearRange="['2020', '2030']"
-        :minDate="new Date()" :disabledDays="disabledDays" :multiple="true" :value="value" @change="handleSelect"
-        @show="handleCalendarShow" />
-
+        :minDate="new Date()" :disabledDays="disabledDays" inline :value="value" @change="handleSelect"
+        @click="handleCalendarShow" />
+    <section>
+        <Card class="task hidden mt-5 p-5"></Card>
+    </section>
 </template>
 
 <style scoped>
@@ -50,15 +55,8 @@ function handleCalendarShow() {
     width: 100vw !important;
 }
 
-.tasks {
-    margin-top: 28px;
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 20px;
-}
-
-.card {
-    margin-bottom: 28px;
+.task {
     width: max-content;
+    height: 120px;
 }
 </style>

@@ -1,7 +1,4 @@
 <script>
-const gaston = "es feo";
-console.log(gaston);
-
 </script>
 <template>
 
