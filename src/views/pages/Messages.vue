@@ -2,9 +2,9 @@
 </script>
 <template>
 
-    <div class="container">
-        <div class="sidebar">
-            <div class="card" style="background-color: #c68ece; border: none;">
+    <div class="messageContainer">
+        <div class="messageSidebar">
+            <div class="card" style="background-color: #53BF9D; border: none;">
                 <AvatarGroup>
                     <Avatar :image="'/demo/images/avatar/amyelsner.png'" size="large" shape="circle"></Avatar>
                     <Avatar :image="'/demo/images/avatar/asiyajavayant.png'" size="large" shape="circle"></Avatar>
@@ -70,18 +70,8 @@
         </div>
     </div>
 </template>
-<style scoped>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.container {
+<style>
+.messageContainer {
     display: flex;
     width: 100vw;
     max-width: 1400px;
@@ -92,16 +82,16 @@ body {
     border-radius: 8px;
 }
 
-.sidebar {
+.messageSidebar {
     /* width: 200px; */
     padding: 20px;
-    background-color: #c68ece;
+    background-color: #53BF9D;
     color: #fff;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
 
-.sidebar h2 {
+.messageSidebar h2 {
     margin-top: 0;
 }
 
@@ -116,11 +106,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 .notification-bubble {
     background-color: white;
-    color: #c68ece;
+    color: #53BF9D;
     font-weight: bolder;
     border-radius: 50%;
     padding: 5px 10px;
@@ -137,7 +128,7 @@ body {
 
 .chat-header {
     padding: 10px;
-    background-color: #c68ece;
+    background-color: #53BF9D;
     color: #fff;
     text-align: center;
     border-top-right-radius: 8px;
@@ -163,7 +154,7 @@ body {
 }
 
 .message.sent {
-    background-color: #c68ece;
+    background-color: #53BF9D;
     color: #fff;
     align-self: flex-end;
 }
@@ -193,7 +184,7 @@ body {
 .chat-input button {
     padding: 10px 20px;
     border: none;
-    background-color: #c68ece;
+    background-color: #53BF9D;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
@@ -209,5 +200,10 @@ body {
     color: rgb(161, 84, 161);
     padding: 20px !important;
     border-radius: 8px;
+}
+
+.p-badge {
+    background: white !important;
+    color: green !important;
 }
 </style>
