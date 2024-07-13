@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="sidebar">
-            <div class="card" style="background-color: #007bff; border: none;">
+            <div class="card" style="background-color: #c68ece; border: none;">
                 <AvatarGroup>
                     <Avatar :image="'/demo/images/avatar/amyelsner.png'" size="large" shape="circle"></Avatar>
                     <Avatar :image="'/demo/images/avatar/asiyajavayant.png'" size="large" shape="circle"></Avatar>
@@ -56,11 +56,11 @@
                 </div>
                 <div class="message sent">
                     <p>Estoy bien, gracias. ¿Y tú?</p>
-                    <span class="timestamp">10:32 AM</span>
+                    <span class="timestamp" style="color: white;">10:32 AM</span>
                 </div>
                 <div class="message received">
                     <p>¡Todo bien también!</p>
-                    <span class="timestamp">10:33 AM</span>
+                    <span class=" timestamp">10:33 AM</span>
                 </div>
             </div>
             <div class="chat-input">
@@ -95,7 +95,7 @@ body {
 .sidebar {
     /* width: 200px; */
     padding: 20px;
-    background-color: #007bff;
+    background-color: #c68ece;
     color: #fff;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -119,8 +119,9 @@ body {
 }
 
 .notification-bubble {
-    background-color: #ff6347;
-    color: #fff;
+    background-color: white;
+    color: #c68ece;
+    font-weight: bolder;
     border-radius: 50%;
     padding: 5px 10px;
     font-size: 0.8em;
@@ -136,7 +137,7 @@ body {
 
 .chat-header {
     padding: 10px;
-    background-color: #007bff;
+    background-color: #c68ece;
     color: #fff;
     text-align: center;
     border-top-right-radius: 8px;
@@ -162,7 +163,7 @@ body {
 }
 
 .message.sent {
-    background-color: #007bff;
+    background-color: #c68ece;
     color: #fff;
     align-self: flex-end;
 }
@@ -192,19 +193,20 @@ body {
 .chat-input button {
     padding: 10px 20px;
     border: none;
-    background-color: #007bff;
+    background-color: #c68ece;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .chat-input button:hover {
-    background-color: #0056b3;
+    background-color: rgb(94, 197, 94);
 }
 
 .focusedChat {
     background-color: #ffffff !important;
-    color: black;
+    color: rgb(161, 84, 161);
     padding: 20px !important;
     border-radius: 8px;
 }

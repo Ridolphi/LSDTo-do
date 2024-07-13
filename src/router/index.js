@@ -70,12 +70,6 @@ const router = createRouter({
             name: 'login',
             component: () => import('@/views/pages/auth/Login.vue')
         }
-        // ,
-        // {
-        //     path: '/auth/access',
-        //     name: 'accessDenied',
-        //     component: () => import('@/views/pages/auth/Access.vue')
-        // }
     ]
 });
 
