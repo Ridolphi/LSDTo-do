@@ -56,6 +56,9 @@ const TasksInProgress = computed(() =>
 const TasksDone = computed(() =>
     todos.value.filter((todo) => todo.tags.status === "Done" && todo.tags.department === "Gastronomy")
 );
+const filteredDepartments = computed(() => {
+  return departments.filter(department => department !== editedTask.value.tags.department);
+});
 
 const updateTask = () => {
     editTask(editedTask.value.id, editedTask.value)
@@ -218,7 +221,7 @@ const updateTask = () => {
                         <option :value="editedTask.tags.department" selected>
                             {{ editedTask.tags.department }}
                         </option>
-                        <option v-for="department in departments" :value="department">
+                        <option v-for="department in filteredDepartments" :value="department">
                             {{ department }}
                         </option>
                     </select>

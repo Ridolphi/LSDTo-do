@@ -57,6 +57,9 @@ const TasksInProgress = computed(() =>
 const TasksDone = computed(() =>
     todos.value.filter((todo) => todo.tags.status === "Done" && todo.tags.department === "Artist & bookings")
 );
+const filteredDepartments = computed(() => {
+    return departments.filter(department => department !== editedTask.value.tags.department);
+});
 
 const updateTask = () => {
     editTask(editedTask.value.id, editedTask.value)
@@ -219,7 +222,7 @@ const updateTask = () => {
                         <option :value="editedTask.tags.department" selected>
                             {{ editedTask.tags.department }}
                         </option>
-                        <option v-for="department in departments" :value="department">
+                        <option v-for="department in filteredDepartments" :value="department">
                             {{ department }}
                         </option>
                     </select>
@@ -247,7 +250,7 @@ const updateTask = () => {
             <div class="p-4 w">
                 <h3 class="text-lg font-semibold mb-5 text-inline">Are you sure to delete the next task "{{
                     selectedTask.text
-                }}" ?</h3>
+                    }}" ?</h3>
                 <div class="text-center">
                     <Button @click="deleteTask(selectedTask.id)" label="Delete" severity="danger" raised>
                     </Button>

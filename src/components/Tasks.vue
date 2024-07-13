@@ -76,7 +76,7 @@ const TasksDone = computed(() =>
   todos.value.filter((todo) => todo.tags.status === "Done")
 );
 const filteredDepartments = computed(() => {
-  return departments.filter(department => department !== editedTask.value?.tags?.department);
+  return departments.filter(department => department !== editedTask.value.tags.department);
 });
 
 

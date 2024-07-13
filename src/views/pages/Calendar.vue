@@ -40,42 +40,9 @@ function handleCalendarShow() {
 
 <template>
     <Calendar style="width: 100vw !important;" placeholder="Add a task" :yearRange="['2020', '2030']"
-        :minDate="new Date()" :disabledDays="disabledDays" :multiple="true" :readonlyInput="true" :value="value"
-        @change="handleSelect" @show="handleCalendarShow" />
-    <section class="tasks">
-        <div class="card">
-            <p class="task"></p>
-            <p>Task to do</p>
-        </div>
-        <div class="card">
-            <p class="task"></p>
-            <p>Task to do</p>
-        </div>
-        <div class="card">
-            <p>22/07/2024</p>
-            <p>Task to do</p>
-        </div>
-        <div class="card">
-            <p>26/07/2024</p>
-            <p>Task to do</p>
-        </div>
-        <div class="card">
-            <p>28/07/2024</p>
-            <p>Task to do</p>
-        </div>
-        <div class="card">
-            <p>01/08/2024</p>
-            <p>Task to do</p>
-        </div>
-        <div class="card">
-            <p>01/08/2024</p>
-            <p>Task to do</p>
-        </div>
-        <div class="card mb-28">
-            <p>01/08/2024</p>
-            <p>Task to do</p>
-        </div>
-    </section>
+        :minDate="new Date()" :disabledDays="disabledDays" :multiple="true" :value="value" @change="handleSelect"
+        @show="handleCalendarShow" />
+
 </template>
 
 <style scoped>
@@ -92,5 +59,6 @@ function handleCalendarShow() {
 
 .card {
     margin-bottom: 28px;
+    width: max-content;
 }
 </style>
