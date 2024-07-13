@@ -7,7 +7,6 @@ import { ref } from "vue";
 const value = ref([]);
 const disabledDates = ref([]); // Inicializar si es necesario
 const disabledDays = ref([]);  // Inicializar si es necesario
-
 // Función para manejar la selección de fecha en el calendario
 // const mensaje = ref('');
 // function handleSelect(event) {
@@ -26,7 +25,6 @@ function formatMonthYear(monthYear) {
 // Agregar listener de click al calendario cuando se muestra    
 function handleCalendarShow() {
     const calendario = document.querySelector('.p-datepicker');
-    if (calendario) {
         calendario.addEventListener('click', (event) => {
             const day = event.target.innerText;
             const monthYearClicked = calendario.querySelector('.p-datepicker-title').innerText;
@@ -34,17 +32,15 @@ function handleCalendarShow() {
             console.log('Clicked on calendar:', day, monthYear);
             const task = document.querySelector('.task');
             task.classList.remove('hidden');
-            task.innerHTML = `<b> Selected day: ${day} ${monthYear} </b>`;;
+            task.innerHTML = `<b> Selected day: ${day} ${monthYear} </b>`;
         });
-    }
 }
 
 </script>
 
 <template>
-    <Calendar style="width: 100vw !important;" placeholder="Add a task" :yearRange="['2020', '2030']"
-        :minDate="new Date()" :disabledDays="disabledDays" inline :value="value" @change="handleSelect"
-        @click="handleCalendarShow" />
+    <Calendar style="width: 100vw !important;" placeholder="Add a task" 
+        :minDate="new Date()" :disabledDays="disabledDays" inline :value="value" @click="handleCalendarShow" />
     <section>
         <Card class="task hidden mt-5 p-5"></Card>
     </section>

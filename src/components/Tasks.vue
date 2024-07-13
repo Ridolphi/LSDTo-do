@@ -12,6 +12,7 @@ const editModal = ref(false);
 const editedTask = ref(null);
 const originalTask = ref(null);
 const selectedTask = ref(null);
+const searchFilter = ref('');
 
 const filters = ref({});
 onBeforeMount(() => {
@@ -37,6 +38,15 @@ const departments = [
   // "Medical services",
   // "Social Media & Digital Content",
 ];
+
+const filterTasks = (tasks) => { //funcion que retorna un filtrado de lo que buscamos dentro de la api
+  const filter = searchFilter.value.toLowerCase();
+  return tasks.filter(task => 
+    task.text.toLowerCase().includes(filter) || 
+    task.description.toLowerCase().includes(filter) || 
+    task.tags.department.toLowerCase().includes(filter)
+  );
+};
 
 
 const openEditModal = (task) => {
@@ -67,13 +77,13 @@ onMounted(() => {
 });
 
 const TasksToDo = computed(() =>
-  todos.value.filter((todo) => todo.tags.status === "To Do")
+  filterTasks(todos.value.filter((todo) => todo.tags.status === "To Do"))  //a nuestros filtros le aplicamos tambien la funcion filterTasks para que también haga el filtrado ahí
 );
 const TasksInProgress = computed(() =>
-  todos.value.filter((todo) => todo.tags.status === "In Progress")
+  filterTasks(todos.value.filter((todo) => todo.tags.status === "In Progress"))
 );
 const TasksDone = computed(() =>
-  todos.value.filter((todo) => todo.tags.status === "Done")
+  filterTasks(todos.value.filter((todo) => todo.tags.status === "Done"))
 );
 const filteredDepartments = computed(() => {
   return departments.filter(department => department !== editedTask.value.tags.department);
@@ -100,7 +110,7 @@ const updateTask = () => {
     <h5 class="m-0">All departments</h5>
     <IconField iconPosition="left" class="block mt-2 md:mt-0">
       <InputIcon class="pi pi-search" />
-      <InputText class="w-full sm:w-auto" v-model="filters['global'].value" placeholder="Search task..." />
+      <InputText class="w-full sm:w-auto" v-model="searchFilter" placeholder="Search task..." />
     </IconField>
   </div>
 

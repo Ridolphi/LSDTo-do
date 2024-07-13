@@ -32,13 +32,13 @@
                     Tincho <span class="notification-bubble">2</span>
                 </li>
                 <li class="mb-5">
+                    Dani <span class="notification-bubble">9</span>
+                </li>
+                <li class="mb-5">
                     Rafaela <span class="notification-bubble">3</span>
                 </li>
                 <li class="mb-5">
                     Mirian
-                </li>
-                <li class="mb-5">
-                    Dani <span class="notification-bubble">9</span>
                 </li>
 
             </ul>
@@ -73,13 +73,12 @@
 <style>
 .messageContainer {
     display: flex;
-    width: 100vw;
     max-width: 1400px;
-    margin: auto;
-    height: 80vh;
+    height: 80vh    ;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    overflow: hidden;
 }
 
 .messageSidebar {
