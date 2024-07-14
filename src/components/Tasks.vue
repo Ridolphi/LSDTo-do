@@ -1,11 +1,8 @@
 <script setup>
-import { ref, computed, toRefs, onMounted, onBeforeMount } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useToast } from 'primevue/usetoast';
 import { fetchTodos, todos, deleteTask, editTask, deleteModal } from "../service/ToDosAPI.js";
 import AddTask from "../components/AddTask.vue";
-import { FilterMatchMode } from 'primevue/api';
-
-
 
 const toast = useToast();
 const editModal = ref(false);
@@ -14,7 +11,15 @@ const originalTask = ref(null);
 const selectedTask = ref(null);
 const searchFilter = ref('');
 
+const sectionVisibility = ref({
+  toDo: true ,
+  inProgress: true,
+  done: true,
+});
 
+const toggleSection = (section) => {
+  sectionVisibility.value[section] = !sectionVisibility.value[section];
+};
 
 const departments = [
   "Artist & bookings",
@@ -31,21 +36,19 @@ const departments = [
   // "Social Media & Digital Content",
 ];
 
-const filterTasks = (tasks) => { //funcion que retorna un filtrado de lo que buscamos dentro de la api
+const filterTasks = (tasks) => {
   const filter = searchFilter.value.toLowerCase();
-  return tasks.filter(task => 
-    task.text.toLowerCase().includes(filter) || 
-    task.description.toLowerCase().includes(filter) || 
+  return tasks.filter(task =>
+    task.text.toLowerCase().includes(filter) ||
+    task.description.toLowerCase().includes(filter) ||
     task.tags.department.toLowerCase().includes(filter)
   );
 };
-
 
 const openEditModal = (task) => {
   editModal.value = true;
   originalTask.value = JSON.parse(JSON.stringify(task));
   editedTask.value = JSON.parse(JSON.stringify(task));
-  //console.log(task);
 };
 
 const closeEditModal = () => {
@@ -55,21 +58,21 @@ const closeEditModal = () => {
 
 const openDeleteModal = (task) => {
   if (task) {
-    deleteModal.value = true; // Usa deleteModal.value desde ToDosAPI.js
+    deleteModal.value = true;
     selectedTask.value = task;
   }
 };
-const closeDeleteModal = (task) => {
-  deleteModal.value = false; // Usa deleteModal.value desde ToDosAPI.js
 
+const closeDeleteModal = () => {
+  deleteModal.value = false;
 };
 
 onMounted(() => {
-  fetchTodos()
+  fetchTodos();
 });
 
 const TasksToDo = computed(() =>
-  filterTasks(todos.value.filter((todo) => todo.tags.status === "To Do"))  //a nuestros filtros le aplicamos tambien la funcion filterTasks para que también haga el filtrado ahí
+  filterTasks(todos.value.filter((todo) => todo.tags.status === "To Do"))
 );
 const TasksInProgress = computed(() =>
   filterTasks(todos.value.filter((todo) => todo.tags.status === "In Progress"))
@@ -78,12 +81,11 @@ const TasksDone = computed(() =>
   filterTasks(todos.value.filter((todo) => todo.tags.status === "Done"))
 );
 const filteredDepartments = computed(() => {
-  return departments.filter(department => department !== editedTask.value.tags.department);
+  return departments.filter(department => department !== editedTask.value?.tags.department);
 });
 
-
 const updateTask = () => {
-  editTask(editedTask.value.id, editedTask.value) //usamos la función editTask de ToDosAPI.js
+  editTask(editedTask.value.id, editedTask.value)
     .then(() => {
       fetchTodos();
       toast.add({ severity: 'success', summary: 'Success', detail: 'Task was updated successfully', life: 3000 });
@@ -93,12 +95,10 @@ const updateTask = () => {
       console.error('Error al editar la tarea:', error);
       toast.add({ severity: 'error', summary: 'Error', detail: 'Error on updating task', life: 3000 });
     });
-}
+};
 </script>
 <template>
-
-
-  <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center mb-4  rounded ">
+  <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center mb-4 rounded">
     <h5 class="m-0">All departments</h5>
     <IconField iconPosition="left" class="block mt-2 md:mt-0">
       <InputIcon class="pi pi-search" />
@@ -106,130 +106,133 @@ const updateTask = () => {
     </IconField>
   </div>
 
-
   <div class="grid">
     <!-- TO DO Section -->
-    <div class="col-12 lg:col-6 xl:col-4 p-3">
+    <div class="col-12 lg:col-6 xl:col-4 p-3" @click="toggleSection('toDo')">
       <div>
-        <div class="card flex justify-content-between block bg-red-100 px-3 py-2 mb-4">
+        <div class="card flex justify-content-between block bg-red-100 px-3 py-2 mb-4" >
           <span class="flex align-items-center text-red-700 font-medium">To Do</span>
-          <div class="flex align-items-center justify-content-center border-round"
-            style="width: 2.5rem; height: 2.5rem">
+          <div class="flex align-items-center justify-content-center border-round" style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-exclamation-triangle text-red-300 text-xl"></i>
           </div>
         </div>
         <hr>
-        <div class="mb-5 ml-3" v-if="TasksToDo.length === 0"> <span><b>Waiting Tasks to do... </b></span> <i
-            class="pi pi-spin pi-spinner"></i>
-        </div>
-        <div class="mb-3 ml-3">
-          <span class="text-700 font-medium"><b>{{ TasksToDo.length }}</b></span>
-          <span class="text-500 font-medium"> Tasks waiting to be started</span>
-        </div>
-        <div v-for="task in TasksToDo" :key="task.id" class="card cardToDo p-2 rounded mb-4 p-3">
-          <div class="text-400 text-xs py-2">
-            {{ task.tags.department }}
+        <div>
+          <div class="mb-5 ml-3" v-if="TasksToDo.length === 0">
+            <span><b>Waiting Tasks to do... </b></span> <i class="pi pi-spin pi-spinner"></i>
           </div>
-          <div class="text-900 font-medium text-xl">{{ task.text }}</div>
-          <div class="text-500 py-2">
-            {{ task.description }}
+          <div class="mb-3 ml-3">
+            <span class="text-700 font-medium"><b>{{ TasksToDo.length }}</b></span>
+            <span class="text-500 font-medium"> Tasks waiting to be started</span>
           </div>
-          <div class="text-500">
-            <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
-          </div>
-          <div class="text-right mt-2">
-            <button class="btnDelete mr-2" @click="openDeleteModal(task)">
-              <i class="pi pi-trash"></i>
-            </button>
-            <button @click="openEditModal(task)" class="btnEdit">
-              <i class="pi pi-pencil"></i>
-            </button>
+          <div v-for="task in TasksToDo" :key="task.id" class="card cardToDo p-2 rounded mb-4 p-3" v-if="sectionVisibility.toDo">
+            <div class="text-400 text-xs py-2">
+              {{ task.tags.department }}
+            </div>
+            <div class="text-900 font-medium text-xl">{{ task.text }}</div>
+            <div class="text-500 py-2">
+              {{ task.description }}
+            </div>
+            <div class="text-500">
+              <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
+            </div>
+            <div class="text-right mt-2">
+              <button class="btnDelete mr-2" @click.stop="openDeleteModal(task)">
+                <i class="pi pi-trash"></i>
+              </button>
+              <button @click.stop="openEditModal(task)" class="btnEdit">
+                <i class="pi pi-pencil"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- IN PROGRESS Section -->
-    <div class="col-12 lg:col-6 xl:col-4 p-3">
+    <div class="col-12 lg:col-6 xl:col-4 p-3" @click="toggleSection('inProgress')">
       <div>
         <div class="card flex justify-content-between block bg-yellow-100 px-3 py-2 mb-4">
           <span class="flex align-items-center text-yellow-500 font-medium">In Progress...</span>
-          <div class="flex align-items-center justify-content-center border-round"
-            style="width: 2.5rem; height: 2.5rem">
+          <div class="flex align-items-center justify-content-center border-round" style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-spin pi-spinner text-yellow-500"></i>
           </div>
         </div>
         <hr>
-        <div class="mb-5 ml-3" v-if="TasksInProgress.length === 0">
-          <b>No tasks In Progress yet</b>
-        </div>
-        <div class="mb-3 ml-3">
-          <span class="text-700 font-medium">{{ TasksInProgress.length }}</span>
-          <span class="text-500 font-medium"> Tasks in progress...</span>
-        </div>
-        <div v-for="task in TasksInProgress" :key="task.id" class="card cardInProgress p-2 rounded mb-4 p-3">
-          <div class="text-400 text-xs py-2">
-            {{ task.tags.department }}
+        <div>
+          <div class="mb-5 ml-3" v-if="TasksInProgress.length === 0">
+            <b>No tasks In Progress yet</b>
           </div>
-          <div class="text-900 font-medium text-xl">{{ task.text }}</div>
-          <div class="text-500 py-2">
-            {{ task.description }}
+          <div class="mb-3 ml-3">
+            <span class="text-700 font-medium">{{ TasksInProgress.length }}</span>
+            <span class="text-500 font-medium"> Tasks in progress...</span>
           </div>
-          <div class="text-500">
-            <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
-          </div>
-          <div class="text-right mt-2">
-            <button class="btnDelete mr-2" @click="openDeleteModal(task)">
-              <i class="pi pi-trash"></i>
-            </button>
-            <button @click="openEditModal(task)" class="btnEdit">
-              <i class="pi pi-pencil"></i>
-            </button>
+          <div v-for="task in TasksInProgress" :key="task.id" class="card cardInProgress p-2 rounded mb-4 p-3" v-if="sectionVisibility.inProgress">
+            <div class="text-400 text-xs py-2">
+              {{ task.tags.department }}
+            </div>
+            <div class="text-900 font-medium text-xl">{{ task.text }}</div>
+            <div class="text-500 py-2">
+              {{ task.description }}
+            </div>
+            <div class="text-500">
+              <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
+            </div>
+            <div class="text-right mt-2">
+              <button class="btnDelete mr-2" @click.stop="openDeleteModal(task)">
+                <i class="pi pi-trash"></i>
+              </button>
+              <button @click.stop="openEditModal(task)" class="btnEdit">
+                <i class="pi pi-pencil"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- DONE Section -->
-    <div class="col-12 lg:col-6 xl:col-4 p-3">
+    <div class="col-12 lg:col-6 xl:col-4 p-3" @click="toggleSection('done')">
       <div>
         <div class="card flex justify-content-between block bg-green-100 px-3 py-2 mb-4">
           <span class="flex align-items-center text-green-600 font-medium">Done</span>
-          <div class="flex align-items-center justify-content-center border-round"
-            style="width: 2.5rem; height: 2.5rem">
+          <div class="flex align-items-center justify-content-center border-round" style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-check-circle text-green-600"></i>
           </div>
         </div>
         <hr>
-        <div class="mb-5 ml-3" v-if="TasksDone.length === 0">
-          <b>No tasks In Progress yet</b>
-        </div>
-        <div class="mb-3 ml-3">
-          <span class="text-700 font-medium">{{ TasksDone.length }}</span>
-          <span class="text-500 font-medium"> Tasks Completed.</span>
-        </div>
-        <div v-for="task in TasksDone" :key="task.id" class="card cardDone p-2 rounded mb-4 p-3">
-          <div class="text-400 text-xs py-2">
-            {{ task.tags.department }}
+        <div>
+          <div class="mb-5 ml-3" v-if="TasksDone.length === 0">
+            <b>No tasks Done yet</b>
           </div>
-          <div class="text-900 font-medium text-xl">{{ task.text }}</div>
-          <div class="text-500 py-2">
-            {{ task.description }}
+          <div class="mb-3 ml-3">
+            <span class="text-700 font-medium">{{ TasksDone.length }}</span>
+            <span class="text-500 font-medium"> Tasks Completed.</span>
           </div>
-          <div class="text-500">
-            <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
-          </div>
-          <div class="text-right mt-2">
-            <button class="btnDelete mr-2" @click="openDeleteModal(task)">
-              <i class="pi pi-trash"></i>
-            </button>
-            <button @click="openEditModal(task)" class="btnEdit">
-              <i class="pi pi-pencil"></i>
-            </button>
+          <div v-for="task in TasksDone" :key="task.id" class="card cardDone p-2 rounded mb-4 p-3" v-if="sectionVisibility.done">
+            <div class="text-400 text-xs py-2">
+              {{ task.tags.department }}
+            </div>
+            <div class="text-900 font-medium text-xl">{{ task.text }}</div>
+            <div class="text-500 py-2">
+              {{ task.description }}
+            </div>
+            <div class="text-500">
+              <i style="font-size: 10px">Created on: {{ task.tags.date }}</i>
+            </div>
+            <div class="text-right mt-2">
+              <button class="btnDelete mr-2" @click.stop="openDeleteModal(task)">
+                <i class="pi pi-trash"></i>
+              </button>
+              <button @click.stop="openEditModal(task)" class="btnEdit">
+                <i class="pi pi-pencil"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    
     <!-- Diálogo para editar tarea -->
     <Dialog v-model:visible="editModal" modal :style="{ width: '400px' }">
       <div class="p-4 w">
@@ -270,19 +273,16 @@ const updateTask = () => {
           <Button label="Save" severity="success" raised @click="updateTask" class="mr-5">
           </Button>
           <Button @click="closeEditModal" label="Cancel" severity="danger" plain text raised>
-
           </Button>
         </div>
       </div>
     </Dialog>
     <Dialog v-model:visible="deleteModal" modal>
       <div class="p-4 w">
-        <h3 class="text-lg font-semibold mb-5 text-inline">Are you sure to delete the next task "{{ selectedTask.text
-          }}" ?</h3>
+        <h3 class="text-lg font-semibold mb-5 text-inline">Are you sure to delete the next task "{{ selectedTask.text }}" ?</h3>
         <div class="text-center">
           <Button @click="deleteTask(selectedTask.id)" label="Delete" severity="danger" raised>
           </Button>
-
           <Button @click="closeDeleteModal" label="Back" plain text raised class="ml-5">
           </Button>
         </div>
@@ -356,4 +356,7 @@ const updateTask = () => {
   width: max-content;
   margin: auto;
 }
+
+
+
 </style>
