@@ -14,15 +14,7 @@ const originalTask = ref(null);
 const selectedTask = ref(null);
 const searchFilter = ref('');
 
-const filters = ref({});
-onBeforeMount(() => {
-  initFilters();
-});
-const initFilters = () => {
-  filters.value = {
-    global: { value: null, matchMode: FilterMatchMode.CONTAINS }
-  };
-};
+
 
 const departments = [
   "Artist & bookings",
