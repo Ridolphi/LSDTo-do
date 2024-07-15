@@ -5,13 +5,15 @@ import { ref, computed } from "vue";
 <template>
     <div class="container m-5 m-auto">
         <div class="grid">
-            <img src="../../../public/imagenes/cucucucucu.jpeg" alt="Imagen 1">
+            <img src="../../../public/imagenes/cucucucucu.jpeg" alt="cucucu">
             <br>
-            <img src="../../../public/imagenes/EuroSpain.png" alt="Imagen 2">
+            <img src="../../../public/imagenes/EuroSpain.png" alt="euro spain">
             <br><span></span>
-            <img src="../../../public/imagenes/NicoGol.webp" alt="Imagen 3">
+            <img src="../../../public/imagenes/NicoGol.webp" alt="nico gol">
             <br> <span></span>
-            <img src="../../../public/imagenes/nicoLam.jpeg" alt="Imagen 4">
+            <img src="../../../public/imagenes/nicoLam.jpeg" alt="nico y lamine">
+            <br>
+            <img src="../../../public/imagenes/campeones.png" alt="campeones">
             
         </div>
     </div>
