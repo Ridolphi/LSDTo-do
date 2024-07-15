@@ -4,9 +4,9 @@ import { ref, computed } from "vue";
 
 <template>
     <section>
-        <h1> <span style="color: blue;">FELI</span><span style="color: white;">CID</span><span
-                style="color:blue">ADES</span> <span style="color: red;">CAM</span><span
-                style="color: rgb(232, 226, 48);">PEO</span><span style="color: red;">NES</span> </h1>
+        <h1> <span style="color: rgb(74, 74, 254);">FELI</span><span style="color: white;">CID</span><span
+                style="color: rgb(74, 74, 254)">ADES</span> <span style="color: red;">CAM</span><span
+                style="color: rgb(232, 226, 48);">PE</span><span style="color: red;">ONES</span> </h1>
         <div class="container">
             <div class="grid mt-5">
                 <img src="../../../public/imagenes/aRgCamp.png  " alt="cucucu" class="argentina">
@@ -24,17 +24,6 @@ import { ref, computed } from "vue";
 
 </template>
 <style scoped>
-
-/* section {
-    background: linear-gradient(to right, rgb(208, 78, 78) 0%, yellow 30%, white 60%, rgb(80, 80, 197) 100%);
-    mask-image: linear-gradient(to bottom, black 95%, transparent),
-        linear-gradient(to top, black 95%, transparent),
-        linear-gradient(to right, black 95%, transparent),
-        linear-gradient(to left, black 95%, transparent);
-    mask-composite: intersect;
-    height: max-content ;
-    padding-bottom: 100px;
-} */
 
 h1 {
     width: max-content;
@@ -55,7 +44,7 @@ h1::after {
     bottom: 10px; /* Desplaza el pseudo-elemento 10 píxeles hacia abajo desde la parte inferior del <h1>. */
     height: 5px; /* Define la altura del pseudo-elemento, que actúa como el grosor del subrayado. */
     width: 100%; /* Hace que el pseudo-elemento tenga el mismo ancho que el <h1>. */
-    background: linear-gradient(to right, blue 0%, white 25%, blue 45%, red 55%, yellow 75%, red 100%); /* Crea un gradiente lineal que simula los colores de las banderas de Argentina y España. */
+    background: linear-gradient(to right, rgb(95, 95, 246) 0%, white 25%,  rgb(95, 95, 246) 50%, red 55%, yellow 75%, red 100%); /* Crea un gradiente lineal que simula los colores de las banderas de Argentina y España. */
     border-radius: 2px; /* Redondea ligeramente las esquinas del pseudo-elemento. */
 }
 
@@ -116,26 +105,32 @@ h1:hover {
 @media(max-width: 800px) {
     h1 {
         font-size: 40px;
-        width: 80vw;
+        width: 100vw;
+        letter-spacing: 0;
         text-align: center;
-        margin: auto;
+        margin-left: -30px;
     }
+
     h1::after{
         display: none;
     }
+
     .grid {
         display: block;
     }
+
     .mid {
     margin: 0;
     width: 100vw;
     z-index: 0;
     }
+
     .container img {
         width: 90vw;
         margin: auto;
         margin-bottom: 20px;
     }
+
     .grid img:hover {
         transform: scale(1);
     }
