@@ -113,22 +113,32 @@ h1:hover {
     color: rgb(232, 226, 48);
 }
 
-@media screen and (max-width: 768px) {
+@media(max-width: 800px) {
     h1 {
         font-size: 40px;
-        width: 100vw;
-        letter-spacing: 11px;
+        width: 80vw;
+        text-align: center;
+        margin: auto;
     }
     h1::after{
         display: none;
     }
-    .container{
-        margin: 0 auto;
-        width: 100vw;
+    .grid {
+        display: block;
     }
     .mid {
     margin: 0;
-    width: 500px;
+    width: 100vw;
+    z-index: 0;
     }
+    .container img {
+        width: 90vw;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+    .grid img:hover {
+        transform: scale(1);
+    }
+    
 }
 </style>
