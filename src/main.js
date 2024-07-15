@@ -1,7 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import 'primeflex/primeflex.css'; // Para clases de utilidad
 
 import PrimeVue from 'primevue/config';
 import AutoComplete from 'primevue/autocomplete';
@@ -60,10 +59,7 @@ import Listbox from 'primevue/listbox';
 import MegaMenu from 'primevue/megamenu';
 import Menu from 'primevue/menu';
 import Menubar from 'primevue/menubar';
-import 'primevue/resources/themes/saga-blue/theme.css'; // O cualquier otro tema de PrimeVue
-import 'primevue/resources/primevue.min.css';
 import Message from 'primevue/message';
-import 'primeicons/primeicons.css';
 import MultiSelect from 'primevue/multiselect';
 import OrderList from 'primevue/orderlist';
 import OrganizationChart from 'primevue/organizationchart';
