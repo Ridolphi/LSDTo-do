@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed } from "vue";
-import Carousel from "primevue/carousel";
 </script>
 
 <template>
@@ -47,6 +46,17 @@ h1 {
     text-shadow: 0 0 10px black;
     letter-spacing: 10px;
     transition: 1s;
+    position: relative;
+}
+h1::after {
+    content: ""; /* Inserta un contenido vacío. Es necesario para que el pseudo-elemento sea renderizado. */
+    position: absolute; /* Posiciona el pseudo-elemento de forma absoluta respecto al <h1>. */
+    left: 0; /* Alinea el pseudo-elemento al lado izquierdo del <h1>. */
+    bottom: 10px; /* Desplaza el pseudo-elemento 10 píxeles hacia abajo desde la parte inferior del <h1>. */
+    height: 5px; /* Define la altura del pseudo-elemento, que actúa como el grosor del subrayado. */
+    width: 100%; /* Hace que el pseudo-elemento tenga el mismo ancho que el <h1>. */
+    background: linear-gradient(to right, blue 0%, white 25%, blue 45%, red 55%, yellow 75%, red 100%); /* Crea un gradiente lineal que simula los colores de las banderas de Argentina y España. */
+    border-radius: 2px; /* Redondea ligeramente las esquinas del pseudo-elemento. */
 }
 
 h1:hover {
