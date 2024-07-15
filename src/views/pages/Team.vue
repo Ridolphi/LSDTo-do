@@ -40,7 +40,6 @@ import Carousel from "primevue/carousel";
 h1 {
     width: max-content;
     margin: auto;
-    padding: 20px;
     border-radius: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 80px;
