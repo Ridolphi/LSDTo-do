@@ -112,4 +112,23 @@ h1:hover {
     box-shadow: 10px 10px 10px 0 rgba(245, 1, 1, 0.5);
     color: rgb(232, 226, 48);
 }
+
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 40px;
+        width: 100vw;
+        letter-spacing: 11px;
+    }
+    h1::after{
+        display: none;
+    }
+    .container{
+        margin: 0 auto;
+        width: 100vw;
+    }
+    .mid {
+    margin: 0;
+    width: 500px;
+    }
+}
 </style>
