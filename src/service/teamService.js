@@ -1,6 +1,6 @@
 export const teamService = {
     getImages() {
-        return Promise.resolve([
+        return [
             {
                 itemImageSrc: '/imagenes/campeones.png',
                 thumbnailImageSrc: '/imagenes/campeones.png',
@@ -36,6 +36,6 @@ export const teamService = {
                 thumbnailImageSrc: '/imagenes/nicoLam.jpeg',
                 alt: 'Image 7'
             },
-        ]);
+        ];
     }
 };

@@ -137,6 +137,29 @@ h1:hover {
     
 }
 </style> -->
+    
+    <script setup>
+    import { ref, onMounted } from 'vue';
+    import { teamService } from '../../service/teamService'; // Ajusta la ruta si es necesario
+    
+    const images = ref([]);
+    const responsiveOptions = ref([
+        {
+            breakpoint: '1300px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ]);
+    
+    onMounted(() => {
+        const data = teamService.getImages();
+        images.value = data;
+    });
+    
+    </script>
 
 <template>
     <h1> <span style="color: rgb(74, 74, 254);">FELI</span><span style="color: white;">CID</span><span
@@ -153,33 +176,11 @@ h1:hover {
     </Galleria>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
-import { teamService } from '../../components/teamService'; // Ajusta la ruta si es necesario
-
-const images = ref([]);
-const responsiveOptions = ref([
-    {
-        breakpoint: '1300px',
-        numVisible: 4
-    },
-    {
-        breakpoint: '575px',
-        numVisible: 1
-    }
-]);
-
-onMounted(() => {
-    teamService.getImages().then((data) => {
-        images.value = data;
-    });
-});
-</script>
-
 <style>
 .p-galleria-item-wrapper img {
     height: 500px;
     object-fit: cover;
+    margin-top: 20px
 }
 
 .p-galleria-thumbnail-wrapper img {
