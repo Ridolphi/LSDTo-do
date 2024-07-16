@@ -165,10 +165,10 @@ h1:hover {
     <h1> <span style="color: rgb(74, 74, 254);">FELI</span><span style="color: white;">CID</span><span
             style="color: rgb(74, 74, 254)">ADES</span> <span style="color: red;">CAM</span><span
             style="color: rgb(232, 226, 48);">PE</span><span style="color: red;">ONES</span> </h1>
-    <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5"
-        containerStyle="max-width: 850px; margin: auto;">
+    <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="3"
+        containerStyle="max-width: 900px; margin: auto;">
         <template #item="slotProps">
-            <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%" />
+            <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt"/>
         </template>
         <template #thumbnail="slotProps">
             <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" />
@@ -177,16 +177,24 @@ h1:hover {
 </template>
 
 <style>
+
 .p-galleria-item-wrapper img {
     height: 500px;
+    width: 100%;
     object-fit: cover;
     margin-top: 20px
 }
 
 .p-galleria-thumbnail-wrapper img {
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 100px;
     object-fit: cover;
+}
+.p-galleria-thumbnail-container{
+    background-color: transparent;
+}
+svg{
+    color: black;
 }
 
 h1 {
@@ -242,7 +250,7 @@ h1:hover {
     .p-galleria-item-wrapper img {
         margin-top: 20px;
         width: 100vw;
-        height: 250px;
+        height: 350px;
         object-fit: cover;
     }
 
