@@ -17,6 +17,7 @@ import Breadcrumb from 'primevue/breadcrumb';
 import Calendar from 'primevue/calendar';
 import Card from 'primevue/card';
 import Chart from 'primevue/chart';
+
 import CascadeSelect from 'primevue/cascadeselect';
 import Carousel from 'primevue/carousel';
 import Checkbox from 'primevue/checkbox';
@@ -104,8 +105,10 @@ import Tree from 'primevue/tree';
 import TreeSelect from 'primevue/treeselect';
 import TreeTable from 'primevue/treetable';
 import TriStateCheckbox from 'primevue/tristatecheckbox';
-import VirtualScroller from 'primevue/virtualscroller';
-
+import VirtualScroller from 'primevue/virtualscroller';// Cambia el tema si es necesario
+import 'primevue/resources/primevue.min.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
 // import BlockViewer from '@/components/BlockViewer.vue';
 
 import '@/assets/styles.scss';
