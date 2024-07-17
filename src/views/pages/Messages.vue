@@ -253,7 +253,7 @@ export default {
 }
 .pi-bell{
         position: absolute;
-        left: 20px;
+        right: 25px;
         top: 15px;
         font-size: 2rem;
     }
