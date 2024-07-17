@@ -64,7 +64,7 @@ export default {
         <div :class="{'chat-container': true, 'hidden-mobile': !showChat}">
             <div class="chat-header" style="position: relative; height: 50px;">
                 <h3 style="color:white"> Sandy's chat</h3>
-                <i class="pi pi-bell mr-4 " v-badge="2"></i>
+                <i class="pi pi-bell " v-badge="2"></i>
             </div>
             <button class="toggleButton absolute" @click="toggleView"  style="top: 2px; right: 10px;">
                 <i class="pi pi-bars" style="font-size: 20px; border: none;"></i> 
@@ -286,8 +286,6 @@ export default {
     }
     .pi-bell{
         position: absolute;
-        right: 10px;
-        top: 15px;
         font-size: 2rem;
     }
 }
