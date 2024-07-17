@@ -1,10 +1,29 @@
 <script>
-</script>
-<template>
+import { ref } from 'vue';
 
-    <div class="messageContainer">
-        <div class="messageSidebar">
+export default {
+    setup() {
+        const showChat = ref(true);
+
+        const toggleView = () => {
+            showChat.value = !showChat.value;
+        };
+
+        return {
+            showChat,
+            toggleView,
+        };
+    }
+};
+</script>
+
+<template>
+    <div class="messageContainer relative">
+        <div :class="{'messageSidebar': true, 'hidden-mobile': showChat}">
             <div class="card" style="background-color: #53BF9D; border: none;">
+                <button class="toggleButton absolute" @click="toggleView"  style="top: 2px; right: 10px;"> 
+                    <i class="pi pi-bars" style="font-size: 20px; border: none;"></i> 
+                </button>
                 <AvatarGroup>
                     <Avatar :image="'/demo/images/avatar/amyelsner.png'" size="large" shape="circle"></Avatar>
                     <Avatar :image="'/demo/images/avatar/asiyajavayant.png'" size="large" shape="circle"></Avatar>
@@ -14,7 +33,7 @@
                     <Avatar label="+2" shape="circle" size="large"
                         :style="{ 'background-color': '#9c27b0', color: '#ffffff' }"></Avatar>
                 </AvatarGroup>
-            </div>
+            </div>  
             <ul class="user-list">
                 <li class="mb-5">
                     Gastón <span class="notification-bubble">3</span>
@@ -40,15 +59,16 @@
                 <li class="mb-5">
                     Mirian
                 </li>
-
             </ul>
         </div>
-        <div class="chat-container">
+        <div :class="{'chat-container': true, 'hidden-mobile': !showChat}">
             <div class="chat-header" style="position: relative; height: 50px;">
                 <h3 style="color:white"> Sandy's chat</h3>
-                <i class="pi pi-bell mr-4 "
-                    style="font-size: 2rem; color: white; position: absolute; top: 15px; right: 5px;" v-badge="2"></i>
+                <i class="pi pi-bell mr-4 " v-badge="2"></i>
             </div>
+            <button class="toggleButton absolute" @click="toggleView"  style="top: 2px; right: 10px;">
+                <i class="pi pi-bars" style="font-size: 20px; border: none;"></i> 
+            </button>
             <div class="chat-messages px-5 py-5">
                 <div class="message received">
                     <p>Hola, ¿cómo estás?</p>
@@ -60,34 +80,36 @@
                 </div>
                 <div class="message received">
                     <p>¡Todo bien también!</p>
-                    <span class=" timestamp">10:33 AM</span>
+                    <span class="timestamp">10:33 AM</span>
                 </div>
             </div>
-            <div class="chat-input">
+            <div class="chat-input" style="width: 100%;">
                 <input type="text" placeholder="Escribe tu mensaje...">
                 <button>Enviar</button>
             </div>
         </div>
     </div>
 </template>
+
 <style>
 .messageContainer {
     display: flex;
+    flex-direction: column;
     max-width: 1400px;
-    height: 80vh    ;
+    height: 80vh;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    overflow: hidden;
 }
 
 .messageSidebar {
-    /* width: 200px; */
     padding: 20px;
+    padding-top: 0;
     background-color: #53BF9D;
     color: #fff;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    width: 100%;
 }
 
 .messageSidebar h2 {
@@ -123,6 +145,7 @@
     flex-direction: column;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+    width: 100%;
 }
 
 .chat-header {
@@ -170,6 +193,7 @@
     padding: 10px;
     background-color: #f2f2f2;
     border-bottom-right-radius: 8px;
+    width: 100%;
 }
 
 .chat-input input {
@@ -178,6 +202,7 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-right: 10px;
+    width: calc(100% - 120px);
 }
 
 .chat-input button {
@@ -188,10 +213,27 @@
     border-radius: 5px;
     cursor: pointer;
     transition: 0.2s;
+    width: 100px;
 }
 
 .chat-input button:hover {
     background-color: rgb(94, 197, 94);
+}
+
+.toggleButton {
+    padding: 5px 5px;
+    margin: 10px;
+    border: none;
+    background-color: #53BF9D;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.8s;
+}
+
+.toggleButton:hover {
+    transform: rotate(360deg);
+    padding: 5px;
 }
 
 .focusedChat {
@@ -204,5 +246,49 @@
 .p-badge {
     background: white !important;
     color: green !important;
+}
+
+.hidden-mobile {
+    display: none;
+}
+.pi-bell{
+        position: absolute;
+        left: 20px;
+        top: 15px;
+        font-size: 2rem;
+    }
+/* Responsive Styles */
+@media (min-width: 768px) {
+    .messageContainer {
+        flex-direction: row;
+    }
+
+    .messageSidebar {
+        width: 300px;
+        height: 100%;
+        padding-bottom: 20px;
+        display: block !important;
+    }
+
+    .chat-container {
+        flex-grow: 1;
+    }
+    .chat-messages {
+        flex-grow: 1;
+        height: 100%;
+    }
+    .chat-input {
+        width: 100%;
+    }
+
+    .toggleButton {
+        display: none; 
+    }
+    .pi-bell{
+        position: absolute;
+        right: 10px;
+        top: 15px;
+        font-size: 2rem;
+    }
 }
 </style>
