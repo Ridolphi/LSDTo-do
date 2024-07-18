@@ -110,7 +110,7 @@ const updateTask = () => {
     <!-- TO DO Section -->
     <div class="col-12 lg:col-6 xl:col-4 p-3">
       <div>
-        <div class="card flex justify-content-between block bg-red-100 px-3 py-2 mb-4" @click="toggleSection('toDo')" >
+        <div class="card cardHeader flex justify-content-between block bg-red-100 px-3 py-2 mb-4" @click="toggleSection('toDo')" >
           <span class="flex align-items-center text-red-700 font-medium">To Do</span>
           <div class="flex align-items-center justify-content-center border-round" style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-exclamation-triangle text-red-300 text-xl"></i>
@@ -152,7 +152,7 @@ const updateTask = () => {
     <!-- IN PROGRESS Section -->
     <div class="col-12 lg:col-6 xl:col-4 p-3" >
       <div>
-        <div class="card flex justify-content-between block bg-yellow-100 px-3 py-2 mb-4" @click="toggleSection('inProgress')">
+        <div class="card cardHeader flex justify-content-between block bg-yellow-100 px-3 py-2 mb-4" @click="toggleSection('inProgress')">
           <span class="flex align-items-center text-yellow-500 font-medium">In Progress...</span>
           <div class="flex align-items-center justify-content-center border-round" style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-spin pi-spinner text-yellow-500"></i>
@@ -194,7 +194,7 @@ const updateTask = () => {
     <!-- DONE Section -->
     <div class="col-12 lg:col-6 xl:col-4 p-3" >
       <div>
-        <div class="card flex justify-content-between block bg-green-100 px-3 py-2 mb-4" @click="toggleSection('done')">
+        <div class="card cardHeader flex justify-content-between block bg-green-100 px-3 py-2 mb-4" @click="toggleSection('done')">
           <span class="flex align-items-center text-green-600 font-medium">Done</span>
           <div class="flex align-items-center justify-content-center border-round" style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-check-circle text-green-600"></i>
@@ -357,11 +357,11 @@ const updateTask = () => {
   margin: auto;
 }
 
-  .card{
+.cardHeader{
   cursor: pointer;
   transition: 0.3s;
 }
-.card:hover{
+.cardHeader:hover{
   transform: scale(1.03);
 }
 
