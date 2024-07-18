@@ -11,7 +11,7 @@ const checked = ref(false);
 
 
 function toDashboard() {
-    window.location.href = '/';
+    window.location.href = '/home';
 }
 </script>
 

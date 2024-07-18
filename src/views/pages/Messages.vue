@@ -19,7 +19,7 @@ export default {
 
 <template>
     <div class="messageContainer relative">
-        <div :class="{'messageSidebar': true, 'hidden-mobile': showChat}">
+        <div :class="{'messageSidebar': true,'hidden-mobile': showChat }"> <!-- con esto se aplica el estilo messageSidebar siempre y hiden-mobile cuando showChat sea true -->
             <div class="card" style="background-color: #53BF9D; border: none;">
                 <button class="toggleButton absolute" @click="toggleView"  style="top: 2px; right: 10px;"> 
                     <i class="pi pi-bars" style="font-size: 20px; border: none;"></i> 

@@ -6,10 +6,15 @@ const router = createRouter({
     routes: [
         {
             path: '/',
+            name: 'login',
+            component: () => import('@/views/pages/auth/Login.vue')
+        },
+        {
+            path: '/',
             component: AppLayout,
             children: [
                 {
-                    path: '/',
+                    path: '/home',
                     name: 'dashboard',
                     component: () => import('@/views/Dashboard.vue')
                 },
@@ -65,11 +70,7 @@ const router = createRouter({
                 }
             ]
         },
-        {
-            path: '/auth/login',
-            name: 'login',
-            component: () => import('@/views/pages/auth/Login.vue')
-        }
+        
     ]
 });
 

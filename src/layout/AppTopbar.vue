@@ -23,7 +23,7 @@ const logoUrl = computed(() => {
 
 const onTopBarMenuButton = () => {
     topbarMenuActive.value = !topbarMenuActive.value;
-    router.push('/auth/login');
+    router.push('/');
 };
 const onCalendarButton = () => {
     topbarMenuActive.value = false;

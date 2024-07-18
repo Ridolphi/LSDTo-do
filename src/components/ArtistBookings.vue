@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, toRefs, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 import { useToast } from 'primevue/usetoast';
 import { fetchTodos, todos, deleteTask, editTask, deleteModal } from "../service/ToDosAPI.js";

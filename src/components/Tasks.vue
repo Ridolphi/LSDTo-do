@@ -99,7 +99,7 @@ const updateTask = () => {
 </script>
 <template>
   <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center mb-4 rounded">
-    <h5 class="m-0">All departments</h5>
+    <h2 class="m-0">All departments</h2>
     <IconField iconPosition="left" class="block mt-2 md:mt-0">
       <InputIcon class="pi pi-search" />
       <InputText class="w-full sm:w-auto" v-model="searchFilter" placeholder="Search task..." />
@@ -357,6 +357,12 @@ const updateTask = () => {
   margin: auto;
 }
 
-
+  .card{
+  cursor: pointer;
+  transition: 0.3s;
+}
+.card:hover{
+  transform: scale(1.03);
+}
 
 </style>
