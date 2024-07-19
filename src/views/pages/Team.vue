@@ -22,8 +22,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <h1> <span style="color: rgb(74, 74, 254);">FELI</span><span style="color: white;">CID</span><span
-            style="color: rgb(74, 74, 254)">ADES</span> <span style="color: red;">CAM</span><span
+    <h1> <span style="color: rgb(166 166 237);">FELI</span><span style="color: white;">CID</span><span
+            style="color: rgb(166 166 237)">ADES</span> <span style="color: red;">CAM</span><span
             style="color: rgb(232, 226, 48);">PE</span><span style="color: red;">ONES</span> </h1>
     <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="3"
         containerStyle="max-width: 900px; margin: auto;">
@@ -84,7 +84,7 @@ h1::after {
     /* Define la altura del pseudo-elemento, que actúa como el grosor del subrayado. */
     width: 100%;
     /* Hace que el pseudo-elemento tenga el mismo ancho que el <h1>. */
-    background: linear-gradient(to right, rgb(95, 95, 246) 0%, white 25%, rgb(95, 95, 246) 50%, red 55%, yellow 75%, red 100%);
+    background: linear-gradient(to right, rgb(166 166 237)0%, white 25%, rgb(166 166 237) 50%, red 55%, yellow 75%, red 100%);
     /* Crea un gradiente lineal que simula los colores de las banderas de Argentina y España. */
     border-radius: 2px;
     /* Redondea ligeramente las esquinas del pseudo-elemento. */
