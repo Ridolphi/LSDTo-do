@@ -11,7 +11,7 @@ const disabledDays = ref([]);  // Inicializar si es necesario
 const mensaje = ref('');
 function handleSelect(event) {
     const mensajeInput = event.target.value;  // Crear variable nueva para el valor del input de texto
-    mensaje.value = mensajeInput;  // añadir el valor el input a una variable global
+    mensaje = mensajeInput;  // añadir el valor el input a una variable global
     //console.log('Input task:', event);
 }
 
@@ -32,8 +32,8 @@ function handleCalendarShow() {
             // console.log('Clicked on calendar:', day, monthYear);
             const task = document.querySelector('.task');
             task.classList.remove('hidden');
-            console.log(mensaje.value);
-            task.innerHTML = `<b> Selected day: ${mensaje} ${day} ${monthYear} ${mensaje.value}</b>`;
+            // console.log(mensaje);
+            task.innerHTML = `<b> Selected day: ${day} ${monthYear}</b>`;
         });
 }
 
@@ -41,7 +41,7 @@ function handleCalendarShow() {
 
 <template>
     <Calendar style="width: 100vw !important;" placeholder="Add a task" 
-        :minDate="new Date()" :disabledDays="disabledDays" :value="value" @click="handleCalendarShow" @change="handleSelect()" />
+        :minDate="new Date()" :disabledDays="disabledDays" inline :value="value" @click="handleCalendarShow" @change="handleSelect()" />
     <section>
         <Card class="task hidden mt-5 p-5"></Card>
     </section>
