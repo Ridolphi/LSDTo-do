@@ -27,9 +27,8 @@ const departments = [
 const statuses = ['To Do', 'In Progress', 'Done'];
 
 
-const date = new Date();
+const date = new Date().toLocaleString();
 
-const dateString = date.toLocaleString();
 
 
 
@@ -52,7 +51,7 @@ const handleSubmit = async () => {
     tags: {
       department: selectedDepartment.value,
       status: selectedStatus.value,
-      date: dateString,
+      date: date,
     }
   };
 
@@ -101,7 +100,7 @@ const handleSubmit = async () => {
         </select>
       </div>
       <div class="mb-4">
-        <input type="hidden" v-model="dateString" />
+        <input type="hidden" v-model="date" />
       </div>
       <div class="flex items-center justify-end">
         <button @click="handleSubmit"

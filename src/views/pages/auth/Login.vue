@@ -13,6 +13,7 @@ const checked = ref(false);
 function toDashboard() {
     window.location.href = '/all-departments';
 }
+
 </script>
 
 <template>

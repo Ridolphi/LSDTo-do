@@ -5,15 +5,15 @@ import { ref } from "vue";
 
 // Definir los valores reactivos
 const value = ref([]);
-// const disabledDates = ref([]); // Inicializar si es necesario
+const disabledDates = ref([]); // Inicializar si es necesario
 const disabledDays = ref([]);  // Inicializar si es necesario
 // Función para manejar la selección de fecha en el calendario
-// const mensaje = ref('');
-// function handleSelect(event) {
-//     const mensajeInput = event.target.value;  // Crear variable nueva para el valor del input de texto
-//     mensaje.value = mensajeInput;  // añadir el valor el input a una variable global
-//     //console.log('Input task:', event);
-// }
+const mensaje = ref('');
+function handleSelect(event) {
+    const mensajeInput = event.target.value;  // Crear variable nueva para el valor del input de texto
+    mensaje.value = mensajeInput;  // añadir el valor el input a una variable global
+    //console.log('Input task:', event);
+}
 
 // Función para formatear el mes y año
 function formatMonthYear(monthYear) {
@@ -29,10 +29,11 @@ function handleCalendarShow() {
             const day = event.target.innerText;
             const monthYearClicked = calendario.querySelector('.p-datepicker-title').innerText;
             const monthYear = formatMonthYear(monthYearClicked);
-            console.log('Clicked on calendar:', day, monthYear);
+            // console.log('Clicked on calendar:', day, monthYear);
             const task = document.querySelector('.task');
             task.classList.remove('hidden');
-            task.innerHTML = `<b> Selected day: ${day} ${monthYear} </b>`;
+            console.log(mensaje.value);
+            task.innerHTML = `<b> Selected day: ${mensaje} ${day} ${monthYear} ${mensaje.value}</b>`;
         });
 }
 
@@ -40,7 +41,7 @@ function handleCalendarShow() {
 
 <template>
     <Calendar style="width: 100vw !important;" placeholder="Add a task" 
-        :minDate="new Date()" :disabledDays="disabledDays" inline :value="value" @click="handleCalendarShow" />
+        :minDate="new Date()" :disabledDays="disabledDays" :value="value" @click="handleCalendarShow" @change="handleSelect()" />
     <section>
         <Card class="task hidden mt-5 p-5"></Card>
     </section>
