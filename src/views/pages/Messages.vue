@@ -1,28 +1,22 @@
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-    setup() {
-        const showChat = ref(true);
+const showChat = ref(true);
 
-        const toggleView = () => {
-            showChat.value = !showChat.value;
-        };
-
-        return {
-            showChat,
-            toggleView,
-        };
-    }
+const toggleView = () => {
+    showChat.value = !showChat.value;
 };
+
+
 </script>
 
 <template>
     <div class="messageContainer relative">
-        <div :class="{'messageSidebar': true,'hidden-mobile': showChat }"> <!-- con esto se aplica el estilo messageSidebar siempre y hiden-mobile cuando showChat sea true -->
+        <div :class="{ 'messageSidebar': true, 'hidden-mobile': showChat }">
+            <!-- con esto se aplica el estilo messageSidebar siempre y hiden-mobile cuando showChat sea true -->
             <div class="card" style="background-color: #53BF9D; border: none;">
-                <button class="toggleButton absolute" @click="toggleView"  style="top: 2px; right: 10px;"> 
-                    <i class="pi pi-bars" style="font-size: 20px; border: none;"></i> 
+                <button class="toggleButton absolute" @click="toggleView" style="top: 2px; right: 10px;">
+                    <i class="pi pi-bars" style="font-size: 20px; border: none;"></i>
                 </button>
                 <AvatarGroup>
                     <Avatar :image="'/demo/images/avatar/amyelsner.png'" size="large" shape="circle"></Avatar>
@@ -33,7 +27,7 @@ export default {
                     <Avatar label="+2" shape="circle" size="large"
                         :style="{ 'background-color': '#9c27b0', color: '#ffffff' }"></Avatar>
                 </AvatarGroup>
-            </div>  
+            </div>
             <ul class="user-list">
                 <li class="mb-5">
                     Gastón <span class="notification-bubble">3</span>
@@ -61,13 +55,13 @@ export default {
                 </li>
             </ul>
         </div>
-        <div :class="{'chat-container': true, 'hidden-mobile': !showChat}">
+        <div :class="{ 'chat-container': true, 'hidden-mobile': !showChat }">
             <div class="chat-header" style="position: relative; height: 50px;">
                 <h3 style="color:white"> Sandy's chat</h3>
                 <i class="pi pi-bell " v-badge="2"></i>
             </div>
-            <button class="toggleButton absolute" @click="toggleView"  style="top: 2px; right: 10px;">
-                <i class="pi pi-bars" style="font-size: 20px; border: none;"></i> 
+            <button class="toggleButton absolute" @click="toggleView" style="top: 2px; right: 10px;">
+                <i class="pi pi-bars" style="font-size: 20px; border: none;"></i>
             </button>
             <div class="chat-messages px-5 py-5">
                 <div class="message received">
@@ -251,12 +245,14 @@ export default {
 .hidden-mobile {
     display: none;
 }
-.pi-bell{
-        position: absolute;
-        left: 20px;
-        top: 15px;
-        font-size: 2rem;
-    }
+
+.pi-bell {
+    position: absolute;
+    left: 20px;
+    top: 15px;
+    font-size: 2rem;
+}
+
 /* Responsive Styles */
 @media (min-width: 768px) {
     .messageContainer {
@@ -268,24 +264,28 @@ export default {
         height: 100%;
         padding-bottom: 20px;
         display: block !important;
-        overflow: auto;  /* Barra para hacer scroll */
+        overflow: auto;
+        /* Barra para hacer scroll */
     }
 
     .chat-container {
         flex-grow: 1;
     }
+
     .chat-messages {
         flex-grow: 1;
         height: 100%;
     }
+
     .chat-input {
         width: 100%;
     }
 
     .toggleButton {
-        display: none; 
+        display: none;
     }
-    .pi-bell{
+
+    .pi-bell {
         position: absolute;
         font-size: 2rem;
         right: 20px;
