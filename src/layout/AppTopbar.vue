@@ -65,7 +65,7 @@ const isOutsideClicked = (event) => {
 
 <template>
     <div class="layout-topbar">
-        <router-link to="/" class="layout-topbar-logo">
+        <router-link to="/home" class="layout-topbar-logo">
             <img :src="logoUrl" alt="logo" style="height: 55px;" />
             <span>LSD Festival</span>
         </router-link>

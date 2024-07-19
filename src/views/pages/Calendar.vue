@@ -5,7 +5,7 @@ import { ref } from "vue";
 
 // Definir los valores reactivos
 const value = ref([]);
-const disabledDates = ref([]); // Inicializar si es necesario
+// const disabledDates = ref([]); // Inicializar si es necesario
 const disabledDays = ref([]);  // Inicializar si es necesario
 // Función para manejar la selección de fecha en el calendario
 // const mensaje = ref('');
