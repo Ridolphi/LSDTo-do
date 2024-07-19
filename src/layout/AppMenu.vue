@@ -6,7 +6,7 @@ const model = ref([
   {
     label: "HOME",
     items: [
-      { label: "All Departments", icon: "pi pi-fw pi-home", to: "/home" },
+      { label: "All Departments", icon: "pi pi-fw pi-home", to: "/all-departments" },
       { label: "Team", icon: "pi pi-fw pi-users", to: "/team" },
       { label: "Messages", icon: "pi pi-fw pi-comment", to: "/messages" },
       { label: "Calendar", icon: "pi pi-fw pi-calendar", to: "/calendar" },
